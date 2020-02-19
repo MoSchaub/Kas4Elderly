@@ -14,15 +14,16 @@ struct Skill{
 		case food
 		case fitness
 		case media
+		case mentalFitness
 		
-		static var all = [Category.food,.fitness,.media]
+		case other
+		
+		static var all = [Category.food,.fitness,.media,.mentalFitness,.other]
 	}
 	
 	 
 	
 	var name: String
-	
-	var organizer: User
 	
 	var maximumPeople: Int
 	

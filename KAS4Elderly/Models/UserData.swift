@@ -14,7 +14,7 @@ import SwiftUI
 
 class UserData: ObservableObject {
 	
-	@Published var skill = Skill(name: "", organizer: User(name: "", password: "", email: "", age: "", location: CLLocationCoordinate2D(latitude: 20, longitude: 20), imageString: ""), maximumPeople: 100, minimumPeople: 5, location: CLLocationCoordinate2D(latitude: 20, longitude: 20), category: .fitness)
+	@Published var skill = Skill(name: "", maximumPeople: 100, minimumPeople: 5, location: CLLocationCoordinate2D(latitude: 20, longitude: 20), category: .fitness)
 	
 	
 	var showPopover = false
@@ -73,13 +73,13 @@ class UserData: ObservableObject {
 	init() {
 		if UserDefaults.standard.bool(forKey: "loggedIn"){
 			self.login(name: username!, password: password!)
-			self.skill = Skill(name: "Skill", organizer: self.localUser, maximumPeople: 100, minimumPeople: 10, location: self.user!.location, category: .media)
+			self.skill = Skill(name: "Skill", maximumPeople: 100, minimumPeople: 10, location: self.user!.location, category: .media)
 		}
 	}
 	
 	init(_ number: Int) {
 		self.currentProperty = number
-		self.skill = Skill(name: "Skill", organizer: self.localUser, maximumPeople: 100, minimumPeople: 10, location: self.user!.location, category: .fitness)
+		self.skill = Skill(name: "Skill",  maximumPeople: 100, minimumPeople: 10, location: self.user!.location, category: .fitness)
 	}
 	
 	

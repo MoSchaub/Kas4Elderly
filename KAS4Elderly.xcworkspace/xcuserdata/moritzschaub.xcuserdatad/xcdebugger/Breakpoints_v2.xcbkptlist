@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0384063C-9305-4DFE-9A79-8A89A2578BCC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KAS4Elderly/Models/UserData.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
-            landmarkName = "createUser()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "348948A3-4278-4071-8724-2BB5DFC88758"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -130,54 +114,6 @@
             endingLineNumber = "113"
             landmarkName = "property(for:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E46FE9C2-4C43-47D9-B68A-467EA0607307"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KAS4Elderly/Models/UserData.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "UserData"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "E46FE9C2-4C43-47D9-B68A-467EA0607307 - efa515e857e33689"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "KAS4Elderly.UserData.__allocating_init(Swift.Int) -&gt; KAS4Elderly.UserData"
-                  moduleName = "KAS4Elderly"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/moritzschaub/Desktop/KAS4Elderly/KAS4Elderly/Models/UserData.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "18">
-               </Location>
-               <Location
-                  uuid = "E46FE9C2-4C43-47D9-B68A-467EA0607307 - e487ecb2983a8041"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "KAS4Elderly.UserData.init(Swift.Int) -&gt; KAS4Elderly.UserData"
-                  moduleName = "KAS4Elderly"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/moritzschaub/Desktop/KAS4Elderly/KAS4Elderly/Models/UserData.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "490">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
