@@ -16,15 +16,15 @@ struct ContentView: View {
         Group{
             if userData.loggedIn{
                 TabView {
+                    MySkillsView(userData: userData)
+                        .tabItem {
+                            Image(systemName: "list.dash")
+                            Text("Skills")
+                    }
                     ProfileView(userData: userData)
                         .tabItem {
                             Image(systemName: "person.circle")
                             Text("Profil")
-                    }
-                    AddSkillView(userData: userData)
-                        .tabItem {
-                            Image(systemName: "person.circle")
-                            Text("Hinzufügen")
                     }
                 }
             } else if !userData.loggedIn{

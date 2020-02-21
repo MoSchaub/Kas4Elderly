@@ -343,6 +343,7 @@
 		CB1510C613F3888FE3C6F05AB1B4133C /* PFURLSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E08E2C48ECFFE8DDBA1ACD2221C5558 /* PFURLSession.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		CB544931F8F078605EB8659DC51867A6 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DBA362F88A78EADAF4B528D27637AE /* LocationPicker.swift */; };
 		CB85ECB57DEEF1F068BC9D9A063CD8F8 /* PFPushController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D64E1541A8CE779CED00DDD638F8E69 /* PFPushController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CD02A5B324002DAA00E32523 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02A5B224002DAA00E32523 /* ColorExtension.swift */; };
 		CD0E37AB24449B4F20AAA536B1F99E51 /* PFProductsRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D2FF14669D75B846FB88393B087153 /* PFProductsRequestHandler.m */; };
 		CD1EDACFF8855B1C291839B12E93FAF4 /* PFInstallation.m in Sources */ = {isa = PBXBuildFile; fileRef = 519B13B97EED7E5B01C71744FCFF22B3 /* PFInstallation.m */; };
 		D007DA0255FA2A06ABE8EAF03E3A98F7 /* Bolts-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EE56AFDB2B2E3547665E21B81373666A /* Bolts-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -823,6 +824,7 @@
 		CA626512BF79F580A0D454ADA33329C5 /* PFCurrentUserController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PFCurrentUserController.m; path = Parse/Parse/Internal/User/CurrentUserController/PFCurrentUserController.m; sourceTree = "<group>"; };
 		CAAE2218549C7C7843000E6671A540A4 /* PFObjectController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PFObjectController.h; path = Parse/Parse/Internal/Object/Controller/PFObjectController.h; sourceTree = "<group>"; };
 		CC73E8983E2E21D637EFB89104C9C012 /* PFURLConstructor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PFURLConstructor.h; path = Parse/Parse/Internal/HTTPRequest/PFURLConstructor.h; sourceTree = "<group>"; };
+		CD02A5B224002DAA00E32523 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		CD22859A267BC1FB3BF04EB43FEDE6D5 /* PFSQLiteStatement.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PFSQLiteStatement.m; path = Parse/Parse/Internal/LocalDataStore/SQLite/PFSQLiteStatement.m; sourceTree = "<group>"; };
 		CD4D630F1B1B8697C69DEBEC10F8CFE0 /* PFURLSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PFURLSession.m; path = Parse/Parse/Internal/Commands/CommandRunner/URLSession/Session/PFURLSession.m; sourceTree = "<group>"; };
 		CEE084709F2B393DB47F4A5C2B1A0EE7 /* PFInstallationConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PFInstallationConstants.h; path = Parse/Parse/Internal/Installation/Constants/PFInstallationConstants.h; sourceTree = "<group>"; };
@@ -975,6 +977,7 @@
 		1D1514F8EE8ADB6A5A54DA9D7A742314 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				CD02A5B224002DAA00E32523 /* ColorExtension.swift */,
 				AE01AFE535940286F60B3BDC82C7FAE5 /* LocationPickerViewController.modulemap */,
 				129D700E4F5913298219F370C66B10BF /* LocationPickerViewController.xcconfig */,
 				9DD30606908AC85EE963CE98F0C4B6B9 /* LocationPickerViewController-dummy.m */,
@@ -2174,6 +2177,7 @@
 				A913CB41CBB8ED30BE18B9BFEBA0276C /* Helpers.swift in Sources */,
 				BD4FB49071BBD24BF569695C5E174E07 /* LocationCell.swift in Sources */,
 				FBE08FA58779AFE2E709361F9EA4AE0D /* LocationItem.swift in Sources */,
+				CD02A5B324002DAA00E32523 /* ColorExtension.swift in Sources */,
 				CB544931F8F078605EB8659DC51867A6 /* LocationPicker.swift in Sources */,
 				FEDC01913A0FDD9E48669AC0E8CEE82E /* LocationPickerViewController-dummy.m in Sources */,
 				2AC20CB64DA92B80AB046C69646C183F /* Protocol.swift in Sources */,

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD02A5B124002D3B00E32523 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02A5B024002D3B00E32523 /* ColorExtension.swift */; };
+		CD143BBF23FFFDE4007FF873 /* MySkillsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD143BBE23FFFDE4007FF873 /* MySkillsView.swift */; };
 		CD2F7F7C23EC2C5B00B754DE /* AddSkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F7F7B23EC2C5B00B754DE /* AddSkillView.swift */; };
 		CD328E9323EC5E4500F84E18 /* Pods_KAS4Elderly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1D2DE35F46B871EB69CE0E /* Pods_KAS4Elderly.framework */; };
 		CD328E9423EC5E4500F84E18 /* Pods_KAS4Elderly.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1D2DE35F46B871EB69CE0E /* Pods_KAS4Elderly.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -50,6 +52,8 @@
 /* Begin PBXFileReference section */
 		7F1D2DE35F46B871EB69CE0E /* Pods_KAS4Elderly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KAS4Elderly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C602CEF74A92EFB5C54FCF0 /* Pods-KAS4Elderly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KAS4Elderly.release.xcconfig"; path = "Target Support Files/Pods-KAS4Elderly/Pods-KAS4Elderly.release.xcconfig"; sourceTree = "<group>"; };
+		CD02A5B024002D3B00E32523 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorExtension.swift; path = "../../Pods/Target Support Files/LocationPickerViewController/ColorExtension.swift"; sourceTree = "<group>"; };
+		CD143BBE23FFFDE4007FF873 /* MySkillsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySkillsView.swift; sourceTree = "<group>"; };
 		CD2F7F7B23EC2C5B00B754DE /* AddSkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSkillView.swift; sourceTree = "<group>"; };
 		CD9839B723F56C49007DFC32 /* EditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheet.swift; sourceTree = "<group>"; };
 		CDA2B09123F28E7E00BE1EF4 /* ErrorTranslations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTranslations.swift; sourceTree = "<group>"; usesTabs = 1; };
@@ -163,6 +167,7 @@
 				CDBD3F9923EB3D82000D741A /* User.swift */,
 				CDBD3F9A23EB3D82000D741A /* UserData.swift */,
 				CDA2B09123F28E7E00BE1EF4 /* ErrorTranslations.swift */,
+				CD02A5B024002D3B00E32523 /* ColorExtension.swift */,
 			);
 			name = customClasses;
 			sourceTree = "<group>";
@@ -184,8 +189,9 @@
 		CDBD3FBB23EB3E47000D741A /* Tab Bar views */ = {
 			isa = PBXGroup;
 			children = (
-				CD2F7F7B23EC2C5B00B754DE /* AddSkillView.swift */,
 				CDBD3F9223EB3D82000D741A /* ProfileView.swift */,
+				CD143BBE23FFFDE4007FF873 /* MySkillsView.swift */,
+				CD2F7F7B23EC2C5B00B754DE /* AddSkillView.swift */,
 			);
 			name = "Tab Bar views";
 			sourceTree = "<group>";
@@ -193,9 +199,9 @@
 		CDBD3FBC23EB3E66000D741A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CDBD3F9123EB3D82000D741A /* StartView.swift */,
 				CDBD3F9323EB3D82000D741A /* LoginView.swift */,
 				CDBD3F9F23EB3D82000D741A /* RegisterView.swift */,
-				CDBD3F9123EB3D82000D741A /* StartView.swift */,
 				CDBD3FBB23EB3E47000D741A /* Tab Bar views */,
 				CDBD3FBA23EB3E20000D741A /* supporting Views */,
 			);
@@ -330,7 +336,9 @@
 				CDBD3FB423EB3D82000D741A /* RegisterView.swift in Sources */,
 				CDBD3FB023EB3D82000D741A /* UserData.swift in Sources */,
 				CDBD3FAB23EB3D82000D741A /* LocationPickerView.swift in Sources */,
+				CD02A5B124002D3B00E32523 /* ColorExtension.swift in Sources */,
 				CD2F7F7C23EC2C5B00B754DE /* AddSkillView.swift in Sources */,
+				CD143BBF23FFFDE4007FF873 /* MySkillsView.swift in Sources */,
 				CDBD3FA923EB3D82000D741A /* ProfileView.swift in Sources */,
 				CDBD3FB723EB3D82000D741A /* NameTextField.swift in Sources */,
 				CDBD3F7823EB3BC6000D741A /* ContentView.swift in Sources */,

@@ -14,13 +14,13 @@ import SwiftUI
 
 class UserData: ObservableObject {
 	
-	@Published var skill = Skill(name: "", maximumPeople: 100, minimumPeople: 5, location: CLLocationCoordinate2D(latitude: 20, longitude: 20), category: .fitness)
+	@Published var localSkills: [Skill]
 	
 	
 	var showPopover = false
 	
-	var user: User?{
-		self.currUser()
+	private var user: User?{
+		User(self.currUser()!)
 	}
 	
 	@Published var localUser = User(name: "", password: "", email: "", age: "", location: CLLocationCoordinate2D(latitude: 20, longitude: 20), imageString: "")
@@ -71,15 +71,12 @@ class UserData: ObservableObject {
 	}
 	
 	init() {
+		self.localSkills = [Skill]()
 		if UserDefaults.standard.bool(forKey: "loggedIn"){
 			self.login(name: username!, password: password!)
-			self.skill = Skill(name: "Skill", maximumPeople: 100, minimumPeople: 10, location: self.user!.location, category: .media)
+			self.localUser = user!
+			
 		}
-	}
-	
-	init(_ number: Int) {
-		self.currentProperty = number
-		self.skill = Skill(name: "Skill",  maximumPeople: 100, minimumPeople: 10, location: self.user!.location, category: .fitness)
 	}
 	
 	
@@ -169,18 +166,18 @@ class UserData: ObservableObject {
 	}
 	
 	func isValidPassword(_ password: String) -> Bool {
-        let passwordRegex = "^(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$"
-        
-        let passwordPred = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
-        return passwordPred.evaluate(with: password)
-    }
+		let passwordRegex = "^(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$"
+		
+		let passwordPred = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+		return passwordPred.evaluate(with: password)
+	}
 	
 	func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
+		let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+		
+		let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+		return emailPred.evaluate(with: email)
+	}
 	
 	func zurück(){
 		if self.currentProperty > 0 {
@@ -193,11 +190,90 @@ class UserData: ObservableObject {
 		}
 	}
 	
-	func currUser() -> User?{
+	private func currUser() -> PFUser?{
 		if let currentUser = PFUser.current() {
-			return User(currentUser)
+			return currentUser
 		} else {
 			return nil
+		}
+	}
+	
+	func allSkills() ->[Skill]{
+		var retVal = [Skill]()
+		if currUser() != nil{
+			let query = PFQuery(className:"Skill")
+			query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+				if let error = error {
+					// Log details of the failure
+					print(error.localizedDescription)
+				} else if let objects = objects {
+					// The find succeeded.
+					print("Successfully retrieved \(objects.count) scores.")
+					// Do something with the found objects
+					retVal = [Skill]()
+					for object in objects {
+						retVal.append(Skill(object))
+					}
+				}
+			}
+		}
+		return retVal
+	}
+	
+	func updateSkills(){
+		if currUser() != nil{
+			let query = PFQuery(className:"Skill")
+			query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+				if let error = error {
+					// Log details of the failure
+					print(error.localizedDescription)
+				} else if let objects = objects {
+					// The find succeeded.
+					print("Successfully retrieved \(objects.count) scores.")
+					// Do something with the found objects
+					var results = [Skill]()
+					for object in objects {
+						results.append(Skill(object))
+					}
+					if results.count > 0{
+						var filteredResults = [Skill]()
+						while !results.isEmpty {
+							
+							let akt = results.removeFirst()
+							if akt.owner.name == self.currUser()!.username! {
+								filteredResults.append(akt)
+							}
+						}
+						self.localSkills = filteredResults
+					}
+				}
+			}
+		}
+	}
+	
+	func add(skill: Skill){
+		let parseObject = PFObject(className:"Skill")
+		
+		parseObject["name"] = skill.name
+		parseObject["min"] = skill.maximumPeople
+		parseObject["max"] = skill.minimumPeople
+		parseObject["longitude"] = skill.location.longitude
+		parseObject["latitude"] = skill.location.latitude
+		parseObject["type"] = skill.category.rawValue
+		parseObject["owner"] = PFUser.current()!
+		//parseObject.objectId = skill.id
+		
+		// Saves the new object.
+		parseObject.saveInBackground {
+			(success: Bool, error: Error?) in
+			if (success) {
+				// The object has been saved.
+				self.errorMessage = "gespeichert"
+				self.updateSkills()
+			} else {
+				// There was a problem, check error.description
+				self.errorMessage = error!.localizedDescription
+			}
 		}
 	}
 	
@@ -233,6 +309,9 @@ class UserData: ObservableObject {
 				self.loggedIn = true
 				self.showPopover = false
 				UserDefaults.standard.set(true, forKey: "loggedIn")
+				self.localUser = self.user!
+				self.updateSkills()
+				
 				UserDefaults.standard.synchronize()
 			} else {
 				// The login failed. Check error to see why.
@@ -250,6 +329,38 @@ class UserData: ObservableObject {
 		UserDefaults.standard.synchronize()
 		showPopover = true
 	}
+	
+	func update(skill: Skill){
+		let query = PFQuery(className:"Skill")
+		
+		query.getObjectInBackground(withId: skill.id) { (parseObject, error) in
+			if error != nil {
+				print(error!)
+			} else if let parseObject = parseObject {
+				parseObject["name"] = skill.name
+				parseObject["min"] = skill.maximumPeople
+				parseObject["max"] = skill.minimumPeople
+				parseObject["longitude"] = skill.location.longitude
+				parseObject["latitude"] = skill.location.latitude
+				parseObject["type"] = skill.category.rawValue
+				parseObject["owner"] = self.user!
+				parseObject.objectId = skill.id
+				
+				parseObject.saveInBackground()
+				self.updateSkills()
+			}
+		}
+	}
+	
+	func moveSkills(from offsets: IndexSet, to offset: Int){
+		
+		for i in offsets{
+			var skill = localSkills[i]
+		}
+			
+		
+		//lok.items.move(fromOffsets: offsets, toOffset: offset)
+    }
 	
 	func updateUser(){
 		let currentUser = PFUser.current()
@@ -270,13 +381,40 @@ class UserData: ObservableObject {
 					self.errorMessage = "geändert"
 					self.editing = false
 					DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-						//reshuffling
 						self.errorMessage = ""
 					}
 				}
 			})
 		}
+		
+	}
+	
+	func deleteSkills(at offsets: IndexSet){
+		
+		//for every index in indexSet
+		for index in offsets{
+			
+			//get the skill
+			let skill = localSkills[index]
+			let query = PFQuery(className: "Skill")
+			
+			query.getObjectInBackground(withId: skill.id) { (parseObject, error) in
+				if error != nil {
+					print(error!)
+					self.errorMessage = error!.localizedDescription 
+				} else if let parseObject = parseObject {
+					//if it exists delete it from Cloud Database
+					parseObject.deleteInBackground()
+					
+				}
+			}
+		}
+		//update local stroge
+		self.updateSkills()
 
+		//remove from local storage
+		//localSkills.remove(atOffsets: offsets)
+		
 	}
 	
 	func deleteUser() {
@@ -288,12 +426,12 @@ class UserData: ObservableObject {
 		} else{
 			errorMessage = "ein Fehler ist aufgetreten versuche es später erneut"
 		}
-
+		
 	}
 	
 	func resetPassword(for email: String) {
 		if currUser() != nil{
-		PFUser.requestPasswordResetForEmail(inBackground: currUser()!.email)
+			PFUser.requestPasswordResetForEmail(inBackground: currUser()!.email!)
 			errorMessage = "reset angefordert"
 		} else{
 			errorMessage = "versuche es später noch einmal"

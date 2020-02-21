@@ -8,13 +8,13 @@
 
 import SwiftUI
 import MapKit
+import Parse
 
 struct AddSkillView: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userData : UserData
-    
-    @State var skill = Skill(name: "Skill", maximumPeople: 100, minimumPeople: 5, location: CLLocationCoordinate2D(latitude: 20, longitude: 20), category: .other)
-    @State private var isValid = false
+    @State private var skill = Skill(name: "Skill", maximumPeople: 100, minimumPeople: 0, location: CLLocationCoordinate2D(latitude: 20, longitude: 20), category: .other,user: User(name: "", password: "", email: "", age: "", location: CLLocationCoordinate2D(latitude: 20, longitude: 20), imageString: ""))
     
     var body: some View {
         NavigationView {
@@ -23,10 +23,10 @@ struct AddSkillView: View {
                     TextField("Name eingeben",text: $skill.name)
                 }
                 
-                Section(header: Text("Kategorie")){
-                    Picker(selection: $skill.category, label: Text("Kategorie")) {
-                        ForEach(Skill.Category.all, id: \.self) {
-                            Text($0.rawValue)
+                Section{
+                    Picker("Kategorie", selection: $skill.category) {
+                        ForEach(Skill.Category.all){item in
+                            Text(item.rawValue).tag(item)
                         }
                     }
                 }
@@ -39,16 +39,17 @@ struct AddSkillView: View {
                 NavigationLink(destination: LocationPickerView(location: $skill.location)
                     .overlay(
                     VStack{
-                        
+
                         Spacer()
-                        
+
                         Text(userData.errorMessage)
                             .foregroundColor(.red)
                             .animation(.default)
                             .padding()
-                        
+
                         Button(action: {
-                            self.userData.weiter()
+                            self.presentationMode.wrappedValue.dismiss()
+                            self.userData.add(skill: self.skill)
                         }) {
                             Text("einstellen")
                         }

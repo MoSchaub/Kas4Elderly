@@ -10,7 +10,16 @@ import SwiftUI
 import MapKit
 import Parse
 
-struct User{
+struct User: Hashable, Equatable{
+    
+    static func == (lhs: User, rhs: User) -> Bool {
+        lhs.name == rhs.name
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+    
     var name: String
     var password: String
     var age: String
