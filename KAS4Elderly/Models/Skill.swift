@@ -62,21 +62,6 @@ struct Skill: Identifiable{
 		self.owner = user
 	}
 	
-	func pfObject() -> PFObject {
-		var parseObject = PFObject(className: "Skill")
-		
-		parseObject["name"] = self.name
-		parseObject["min"] = self.maximumPeople
-		parseObject["max"] = self.minimumPeople
-		parseObject["longitude"] = self.location.longitude
-		parseObject["latitude"] = self.location.latitude
-		parseObject["type"] = self.category.rawValue
-		parseObject["owner"] = self.owner
-		parseObject.objectId = self.id
-		
-		return parseObject
-	}
-	
 }
 
 extension Skill.Category: Identifiable{

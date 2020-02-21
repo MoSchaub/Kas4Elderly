@@ -404,13 +404,19 @@ class UserData: ObservableObject {
 					self.errorMessage = error!.localizedDescription 
 				} else if let parseObject = parseObject {
 					//if it exists delete it from Cloud Database
-					parseObject.deleteInBackground()
-					
+					parseObject.deleteInBackground { (succeded, error) in
+						if let error = error{
+							return
+								self.errorMessage = error.localizedDescription
+						} else{
+							//update local stroge
+							self.localSkills.remove(at: index)
+							self.updateSkills()
+						}
+					}
 				}
 			}
 		}
-		//update local stroge
-		self.updateSkills()
 
 		//remove from local storage
 		//localSkills.remove(atOffsets: offsets)

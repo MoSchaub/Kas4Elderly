@@ -14,7 +14,7 @@ struct AddSkillView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userData : UserData
-    @State private var skill = Skill(name: "Skill", maximumPeople: 100, minimumPeople: 0, location: CLLocationCoordinate2D(latitude: 20, longitude: 20), category: .other,user: User(name: "", password: "", email: "", age: "", location: CLLocationCoordinate2D(latitude: 20, longitude: 20), imageString: ""))
+    @State var skill : Skill    
     
     var body: some View {
         NavigationView {
@@ -67,6 +67,6 @@ struct AddSkillView: View {
 
 struct AddSkillView_Previews: PreviewProvider {
     static var previews: some View {
-        AddSkillView(userData: UserData())
+        AddSkillView(userData: UserData(), skill: Skill(name: "Skill", maximumPeople: 100, minimumPeople: 0, location: CLLocationCoordinate2D(latitude: 20, longitude: 20), category: .other,user: User(name: "", password: "", email: "", age: "", location: CLLocationCoordinate2D(latitude: 20, longitude: 20), imageString: "")))
     }
 }

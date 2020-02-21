@@ -41,7 +41,7 @@ struct MySkillsView: View {
                 Image(systemName: "plus")
             })
                 .sheet(isPresented: $showAddSkillView) {
-                    AddSkillView(userData: self.userData)
+                    AddSkillView(userData: self.userData, skill: Skill(name: "Skill", maximumPeople: 3, minimumPeople: 10, location: self.userData.localUser.location, category: .other, user: self.userData.localUser))
             }
         }
     }
