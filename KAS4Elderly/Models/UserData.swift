@@ -274,6 +274,9 @@ class UserData: ObservableObject {
 				// There was a problem, check error.description
 				self.errorMessage = error!.localizedDescription
 			}
+			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+				self.errorMessage = ""
+			}
 		}
 	}
 	
@@ -295,7 +298,11 @@ class UserData: ObservableObject {
 				// Show the errorString somewhere and let the user try again.
 			} else {
 				print("signed up")
+				self.errorMessage = "Registriert"
 				// Hooray! Let them use the app now.
+			}
+			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+				self.errorMessage = ""
 			}
 		})
 	}
@@ -317,6 +324,9 @@ class UserData: ObservableObject {
 				// The login failed. Check error to see why.
 				print(error!.localizedDescription)
 				self.errorMessage = error!.localizedDescription
+				DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+					self.errorMessage = ""
+				}
 			}
 		})
 		
@@ -412,15 +422,15 @@ class UserData: ObservableObject {
 							//update local stroge
 							self.localSkills.remove(at: index)
 							self.updateSkills()
+							self.errorMessage = "gelöscht"
 						}
 					}
 				}
 			}
+			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+				self.errorMessage = ""
+			}
 		}
-
-		//remove from local storage
-		//localSkills.remove(atOffsets: offsets)
-		
 	}
 	
 	func deleteUser() {
@@ -432,6 +442,9 @@ class UserData: ObservableObject {
 		} else{
 			errorMessage = "ein Fehler ist aufgetreten versuche es später erneut"
 		}
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+			self.errorMessage = ""
+		}
 		
 	}
 	
@@ -441,6 +454,9 @@ class UserData: ObservableObject {
 			errorMessage = "reset angefordert"
 		} else{
 			errorMessage = "versuche es später noch einmal"
+		}
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+			self.errorMessage = ""
 		}
 	}
 	

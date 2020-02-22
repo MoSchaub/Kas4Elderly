@@ -18,7 +18,7 @@ struct MySkillsView: View {
     var body: some View {
         NavigationView{
             List{
-                Section{
+                Section(footer: Text(userData.errorMessage).foregroundColor(.red)){
                     ForEach(userData.localSkills) { item in
                         HStack {
                             VStack {
