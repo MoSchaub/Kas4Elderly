@@ -362,16 +362,6 @@ class UserData: ObservableObject {
 		}
 	}
 	
-	func moveSkills(from offsets: IndexSet, to offset: Int){
-		
-		for i in offsets{
-			var skill = localSkills[i]
-		}
-			
-		
-		//lok.items.move(fromOffsets: offsets, toOffset: offset)
-    }
-	
 	func updateUser(){
 		let currentUser = PFUser.current()
 		if currentUser != nil {

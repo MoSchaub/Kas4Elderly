@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 import Parse
 
-struct Skill: Identifiable{
+struct Skill: Identifiable, Equatable{
 	
 	enum Category : String{
 		
@@ -62,6 +62,10 @@ struct Skill: Identifiable{
 		self.owner = user
 	}
 	
+	static func == (lhs: Skill, rhs: Skill) -> Bool {
+		lhs.id == rhs.id
+	}
+
 }
 
 extension Skill.Category: Identifiable{
