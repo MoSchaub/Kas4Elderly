@@ -75,7 +75,6 @@ class UserData: ObservableObject {
 		if UserDefaults.standard.bool(forKey: "loggedIn"){
 			self.login(name: username!, password: password!)
 			self.localUser = user!
-			
 		}
 	}
 	
@@ -253,6 +252,7 @@ class UserData: ObservableObject {
 	
 	func add(skill: Skill){
 		let parseObject = PFObject(className:"Skill")
+		self.updateAddress(for: skill)
 		
 		parseObject["name"] = skill.name
 		parseObject["min"] = skill.maximumPeople
@@ -261,7 +261,7 @@ class UserData: ObservableObject {
 		parseObject["latitude"] = skill.location.latitude
 		parseObject["type"] = skill.category.rawValue
 		parseObject["owner"] = PFUser.current()!
-		//parseObject.objectId = skill.id
+		parseObject["address"] = skill.address
 		
 		// Saves the new object.
 		parseObject.saveInBackground {
@@ -452,6 +452,28 @@ class UserData: ObservableObject {
 	
 	
 	// o)l*3nfJgsmUoFkJWa&C
+	
+	
+	func updateAddress(for skill: Skill){
+		var skill = skill
+		
+		let geocoder = CLGeocoder()
+		
+		let location = CLLocation(latitude: skill.location.latitude, longitude: skill.location.longitude)
+		
+		geocoder.reverseGeocodeLocation(location) { (placemarks, error) -> Void in
+			if let _ = error{ return }
+			
+			guard let placemarks = placemarks?.first else{ return}
+			
+			let streetNumber = placemarks.subThoroughfare ?? ""
+			let streetName = placemarks.thoroughfare ?? ""
+			
+			
+			skill.address = placemarks.areasOfInterest?.first ?? "\(streetName) \(streetNumber)"
+		}
+	}
+	
 	
 }
 

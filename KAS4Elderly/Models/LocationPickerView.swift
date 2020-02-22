@@ -25,6 +25,10 @@ struct LocationPickerView: UIViewControllerRepresentable {
 
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        locationPicker.pickCompletion = { (pickedLocationItem) in
+            // Do something with the location the user picked.
+            self.location = CLLocationCoordinate2D(latitude: pickedLocationItem.coordinate?.latitude ?? 0, longitude: pickedLocationItem.coordinate?.longitude ?? 0)
+        }
     }
 }
 

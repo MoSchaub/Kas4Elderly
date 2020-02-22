@@ -28,6 +28,8 @@ struct Skill: Identifiable, Equatable{
 		}
 	}
 	
+	var address: String
+	
 	var id : String
 	
 	var name: String
@@ -48,11 +50,12 @@ struct Skill: Identifiable, Equatable{
 		self.name = pfObject["name"] as! String
 		self.maximumPeople = pfObject["max"] as! Int
 		self.minimumPeople = pfObject["min"] as! Int
-		self.location = CLLocationCoordinate2D(latitude: pfObject["latitude"] as! Double, longitude: pfObject["latitude"] as! Double)
+		self.location = CLLocationCoordinate2D(latitude: pfObject["latitude"] as! Double, longitude: pfObject["longitude"] as! Double)
 		self.owner = User(PFUser.current()!)
+		self.address = pfObject["address"] as! String
 	}
 	
-	init(name: String, maximumPeople: Int, minimumPeople: Int, location: CLLocationCoordinate2D, category: Category, user: User) {
+	init(name: String, maximumPeople: Int, minimumPeople: Int, location: CLLocationCoordinate2D, category: Category, user: User, address: String) {
 		self.id = UUID().uuidString
 		self.name = name
 		self.maximumPeople = maximumPeople
@@ -60,6 +63,7 @@ struct Skill: Identifiable, Equatable{
 		self.location = location
 		self.category = category
 		self.owner = user
+		self.address = ""
 	}
 	
 	static func == (lhs: Skill, rhs: Skill) -> Bool {
