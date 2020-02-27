@@ -10,15 +10,27 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var userData = UserData()
+    @State private var showImagePicker = false
     
     var body: some View {
         ScrollView {
             VStack {
-                Image(uiImage: userData.localUser.image ?? UIImage(named: "user")!)
-                    .background(Color.white)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.secondary, lineWidth: CGFloat(integerLiteral: 4)))
-                    .padding()
+                Button(action: {
+                    self.showImagePicker = true
+                }) {
+                    Image(uiImage: userData.localUser.image ?? UIImage(named: "user")!)
+                        .renderingMode(.original)
+                        .resizable()
+                        .scaledToFit()
+                        .background(Color.white)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.secondary, lineWidth: CGFloat(integerLiteral: 4)))
+                        .padding()
+                        .sheet(isPresented: self.$showImagePicker) {
+                            ImagePicker(image: self.$userData.localUser.image)
+                    }
+                }
+                
                 
                 HStack {
                     Text("Name: \(userData.localUser.name)").padding()

@@ -19,15 +19,9 @@ struct MySkillsView: View {
         NavigationView{
             List{
                 Section(footer: Text(userData.errorMessage).foregroundColor(.red)){
-                    ForEach(userData.localSkills) { item in
-                        HStack {
-                            VStack {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.category.rawValue)
-                            }
-                            Spacer()
-                            Text(item.address)
+                    ForEach(userData.localUserSkills) { item in
+                        NavigationLink(destination: SkillDetailView(userData: self.userData, skill: item)) {
+                            SkillRow(skill: item)
                         }
                     }
                     .onDelete(perform: self.userData.deleteSkills)
@@ -50,5 +44,22 @@ struct MySkillsView: View {
 struct MySkills_Previews: PreviewProvider {
     static var previews: some View {
         MySkillsView(userData: UserData())
+    }
+}
+
+struct SkillRow: View {
+    
+    var skill: Skill
+    
+    var body: some View {
+        HStack {
+            VStack {
+                Text(skill.name)
+                    .font(.headline)
+                Text(skill.category.rawValue)
+            }
+            Spacer()
+            Text(skill.address)
+        }
     }
 }

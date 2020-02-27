@@ -14,7 +14,10 @@ struct AddSkillView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userData : UserData
-    @State var skill : Skill    
+    @State var skill : Skill
+    @State private var location = CLLocationCoordinate2D()
+    @State private var locations = [MKPointAnnotation]()
+    let kategorien = Skill.Category.all
     
     var body: some View {
         NavigationView {
@@ -25,7 +28,7 @@ struct AddSkillView: View {
                 
                 Section{
                     Picker("Kategorie", selection: $skill.category) {
-                        ForEach(Skill.Category.all){item in
+                        ForEach(kategorien){item in
                             Text(item.rawValue).tag(item)
                         }
                     }
@@ -36,7 +39,7 @@ struct AddSkillView: View {
                     Stepper("Maximal: \(skill.maximumPeople) Leute", value: $skill.maximumPeople, in: skill.minimumPeople ... Int.max)
                 }
                 
-                NavigationLink(destination: LocationPickerView(location: $skill.location)
+                NavigationLink(destination: LocationPickerWrapper(centerCoordinate: $skill.location)
                     .overlay(
                     VStack{
 
@@ -60,6 +63,11 @@ struct AddSkillView: View {
                 }
                 
             }.navigationBarTitle("Skill hinzufügen",displayMode: .inline)
+                .navigationBarItems(trailing: Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Text("Abrechen")
+                }))
         }
     }
     
@@ -67,6 +75,6 @@ struct AddSkillView: View {
 
 struct AddSkillView_Previews: PreviewProvider {
     static var previews: some View {
-        AddSkillView(userData: UserData(), skill: Skill(name: "Skill", maximumPeople: 100, minimumPeople: 0, location: CLLocationCoordinate2D(latitude: 20, longitude: 20), category: .other,user: User(name: "", password: "", email: "", age: "", location: CLLocationCoordinate2D(latitude: 20, longitude: 20), imageString: ""),address: ""))
+        AddSkillView(userData: UserData(), skill: Skill.example)
     }
 }

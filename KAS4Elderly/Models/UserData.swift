@@ -14,6 +14,7 @@ import SwiftUI
 
 class UserData: ObservableObject {
 	
+	@Published var localUserSkills: [Skill]
 	@Published var localSkills: [Skill]
 	
 	
@@ -71,7 +72,9 @@ class UserData: ObservableObject {
 	}
 	
 	init() {
+		self.localUserSkills = [Skill]()
 		self.localSkills = [Skill]()
+		self.updateSkills()
 		if UserDefaults.standard.bool(forKey: "loggedIn"){
 			self.login(name: username!, password: password!)
 			self.localUser = user!
@@ -197,29 +200,49 @@ class UserData: ObservableObject {
 		}
 	}
 	
-	func allSkills() ->[Skill]{
-		var retVal = [Skill]()
-		if currUser() != nil{
-			let query = PFQuery(className:"Skill")
-			query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
-				if let error = error {
-					// Log details of the failure
-					print(error.localizedDescription)
-				} else if let objects = objects {
-					// The find succeeded.
-					print("Successfully retrieved \(objects.count) scores.")
-					// Do something with the found objects
-					retVal = [Skill]()
-					for object in objects {
-						retVal.append(Skill(object))
-					}
+	func updateSkills() {
+
+		let query = PFQuery(className:"Skill")
+		query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
+			if let error = error {
+				// Log details of the failure
+				print(error.localizedDescription)
+			} else if let objects = objects {
+				// The find succeeded.
+				print("Successfully retrieved \(objects.count) scores.")
+				// Do something with the found objects
+				var results = [Skill]()
+				for object in objects {
+					results.append(Skill(object))
 				}
+				self.localSkills = results
 			}
 		}
-		return retVal
+
 	}
 	
-	func updateSkills(){
+	func allLocations() -> [SkillAnnotation] {
+		updateSkills()
+		updateSkills()
+		var annotations = [SkillAnnotation]()
+		for skill in localSkills {
+			annotations.append(skill.annotation())
+		}
+		return annotations
+	}
+	
+	func skill(at location:CLLocationCoordinate2D) -> Skill?{
+		self.updateSkills()
+		if let skill = localSkills.first(where: {$0.location == location}){
+			return skill
+		} else {
+			return nil
+		}
+	}
+	
+	
+	
+	private func updateUserSkills(){
 		if currUser() != nil{
 			let query = PFQuery(className:"Skill")
 			query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
@@ -243,7 +266,7 @@ class UserData: ObservableObject {
 								filteredResults.append(akt)
 							}
 						}
-						self.localSkills = filteredResults
+						self.localUserSkills = filteredResults
 					}
 				}
 			}
@@ -255,8 +278,8 @@ class UserData: ObservableObject {
 		self.updateAddress(for: skill)
 		
 		parseObject["name"] = skill.name
-		parseObject["min"] = skill.maximumPeople
-		parseObject["max"] = skill.minimumPeople
+		parseObject["max"] = skill.maximumPeople
+		parseObject["min"] = skill.minimumPeople
 		parseObject["longitude"] = skill.location.longitude
 		parseObject["latitude"] = skill.location.latitude
 		parseObject["type"] = skill.category.rawValue
@@ -269,7 +292,7 @@ class UserData: ObservableObject {
 			if (success) {
 				// The object has been saved.
 				self.errorMessage = "gespeichert"
-				self.updateSkills()
+				self.updateUserSkills()
 			} else {
 				// There was a problem, check error.description
 				self.errorMessage = error!.localizedDescription
@@ -317,7 +340,7 @@ class UserData: ObservableObject {
 				self.showPopover = false
 				UserDefaults.standard.set(true, forKey: "loggedIn")
 				self.localUser = self.user!
-				self.updateSkills()
+				self.updateUserSkills()
 				
 				UserDefaults.standard.synchronize()
 			} else {
@@ -357,7 +380,7 @@ class UserData: ObservableObject {
 				parseObject.objectId = skill.id
 				
 				parseObject.saveInBackground()
-				self.updateSkills()
+				self.updateUserSkills()
 			}
 		}
 	}
@@ -395,7 +418,7 @@ class UserData: ObservableObject {
 		for index in offsets{
 			
 			//get the skill
-			let skill = localSkills[index]
+			let skill = localUserSkills[index]
 			let query = PFQuery(className: "Skill")
 			
 			query.getObjectInBackground(withId: skill.id) { (parseObject, error) in
@@ -410,8 +433,8 @@ class UserData: ObservableObject {
 								self.errorMessage = error.localizedDescription
 						} else{
 							//update local stroge
-							self.localSkills.remove(at: index)
-							self.updateSkills()
+							self.localUserSkills.remove(at: index)
+							self.updateUserSkills()
 							self.errorMessage = "gelöscht"
 						}
 					}
@@ -477,4 +500,8 @@ class UserData: ObservableObject {
 	
 }
 
-
+extension CLLocationCoordinate2D : Equatable {
+	public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+		lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+	}
+}

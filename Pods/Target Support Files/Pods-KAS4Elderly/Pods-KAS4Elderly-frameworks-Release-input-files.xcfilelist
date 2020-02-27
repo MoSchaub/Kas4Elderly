@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-KAS4Elderly/Pods-KAS4Elderly-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework
+${BUILT_PRODUCTS_DIR}/LocationPicker/LocationPicker.framework
 ${BUILT_PRODUCTS_DIR}/LocationPickerViewController/LocationPickerViewController.framework
 ${BUILT_PRODUCTS_DIR}/Parse/Parse.framework

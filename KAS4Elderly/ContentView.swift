@@ -21,6 +21,11 @@ struct ContentView: View {
                             Image(systemName: "list.dash")
                             Text("Skills")
                     }
+                    SkillKarte(userData: userData)
+                        .tabItem{
+                            Image(systemName: "map")
+                            Text("Karte")
+                    }
                     ProfileView(userData: userData)
                         .tabItem {
                             Image(systemName: "person.circle")

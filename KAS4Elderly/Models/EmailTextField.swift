@@ -19,12 +19,14 @@ struct EmailTextField: View {
                 self.userData.weiter()
             }).modifier(TextFieldModifier())
                 .keyboardType(.emailAddress)
+                .textContentType(.emailAddress)
             
             TextField(" Email erneut eingeben", text: self.$userData.secondEm, onCommit: {
                 self.userData.weiter()
             })
                 .modifier(TextFieldModifier())
                 .keyboardType(.emailAddress)
+                .textContentType(.emailAddress)
             
             Spacer()
             

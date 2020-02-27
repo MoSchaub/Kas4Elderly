@@ -19,6 +19,7 @@ struct NameTextField: View {
                 self.userData.weiter()
             })
                 .modifier(TextFieldModifier())
+                .textContentType(.username)
             
             Spacer()
             

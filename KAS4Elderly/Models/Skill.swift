@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 import Parse
 
-struct Skill: Identifiable, Equatable{
+struct Skill: Identifiable{
 	
 	enum Category : String{
 		
@@ -66,8 +66,18 @@ struct Skill: Identifiable, Equatable{
 		self.address = ""
 	}
 	
+	static var example = Skill(name: "Skill", maximumPeople: 10, minimumPeople: 3, location: User.example.location , category: .other, user: User.example, address: "Examplestraße 1")
+	
 	static func == (lhs: Skill, rhs: Skill) -> Bool {
 		lhs.id == rhs.id
+	}
+	
+	func annotation() -> SkillAnnotation {
+		
+		let annotation = SkillAnnotation(coordinate: self.location, skill: self)
+		annotation.title = name
+		
+		return annotation
 	}
 
 }

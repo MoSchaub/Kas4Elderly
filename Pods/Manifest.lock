@@ -1,5 +1,6 @@
 PODS:
   - Bolts/Tasks (1.9.0)
+  - LocationPicker (1.4.2)
   - LocationPickerViewController (3.4)
   - Parse (1.17.3):
     - Parse/Core (= 1.17.3)
@@ -7,20 +8,23 @@ PODS:
     - Bolts/Tasks (~> 1.9)
 
 DEPENDENCIES:
+  - LocationPicker
   - LocationPickerViewController
   - Parse
 
 SPEC REPOS:
   trunk:
     - Bolts
+    - LocationPicker
     - LocationPickerViewController
     - Parse
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  LocationPicker: 9af49409ec3ca13fdf4bf6b39e1a3c7dec029f4a
   LocationPickerViewController: 4f33d63587bca682267a09779de2b2e09cf5b8e2
   Parse: c1ad2a04d2cab2b54b6fb7da05f741abf2cf57d1
 
-PODFILE CHECKSUM: c67940181ec0d261c8cab13f97f20f2cfe61dcc5
+PODFILE CHECKSUM: a356daa7bad9e937d958974e325ea61dfac8c6a4
 
 COCOAPODS: 1.8.3

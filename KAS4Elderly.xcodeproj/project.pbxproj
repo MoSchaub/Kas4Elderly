@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD02A5B124002D3B00E32523 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02A5B024002D3B00E32523 /* ColorExtension.swift */; };
 		CD143BBF23FFFDE4007FF873 /* MySkillsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD143BBE23FFFDE4007FF873 /* MySkillsView.swift */; };
+		CD2DB8FA2408019200A62434 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DB8F92408019200A62434 /* LocationPicker.swift */; };
+		CD2DB8FC2408036C00A62434 /* LocationPickerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DB8FB2408036C00A62434 /* LocationPickerWrapper.swift */; };
 		CD2F7F7C23EC2C5B00B754DE /* AddSkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F7F7B23EC2C5B00B754DE /* AddSkillView.swift */; };
 		CD328E9323EC5E4500F84E18 /* Pods_KAS4Elderly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1D2DE35F46B871EB69CE0E /* Pods_KAS4Elderly.framework */; };
 		CD328E9423EC5E4500F84E18 /* Pods_KAS4Elderly.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1D2DE35F46B871EB69CE0E /* Pods_KAS4Elderly.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD5FDF682402E05C005D3CDF /* SkillKarte.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5FDF672402E05C005D3CDF /* SkillKarte.swift */; };
+		CD5FDF6A2402E08B005D3CDF /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5FDF692402E08B005D3CDF /* MapView.swift */; };
+		CD5FDF7424031FE5005D3CDF /* SkillDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5FDF7324031FE5005D3CDF /* SkillDetailView.swift */; };
+		CD5FDF792403D7FB005D3CDF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5FDF782403D7FB005D3CDF /* ImagePicker.swift */; };
+		CD5FDF7B2403D8DF005D3CDF /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5FDF7A2403D8DF005D3CDF /* ImagePickerView.swift */; };
 		CD9839B823F56C49007DFC32 /* EditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9839B723F56C49007DFC32 /* EditSheet.swift */; };
 		CDA2B09223F28E7E00BE1EF4 /* ErrorTranslations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA2B09123F28E7E00BE1EF4 /* ErrorTranslations.swift */; };
 		CDBD3F7423EB3BC6000D741A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD3F7323EB3BC6000D741A /* AppDelegate.swift */; };
@@ -24,7 +30,6 @@
 		CDBD3FA823EB3D82000D741A /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD3F9123EB3D82000D741A /* StartView.swift */; };
 		CDBD3FA923EB3D82000D741A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD3F9223EB3D82000D741A /* ProfileView.swift */; };
 		CDBD3FAA23EB3D82000D741A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD3F9323EB3D82000D741A /* LoginView.swift */; };
-		CDBD3FAB23EB3D82000D741A /* LocationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD3F9423EB3D82000D741A /* LocationPickerView.swift */; };
 		CDBD3FAC23EB3D82000D741A /* AgeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD3F9523EB3D82000D741A /* AgeTextField.swift */; };
 		CDBD3FAE23EB3D82000D741A /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD3F9823EB3D82000D741A /* Skill.swift */; };
 		CDBD3FAF23EB3D82000D741A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBD3F9923EB3D82000D741A /* User.swift */; };
@@ -52,9 +57,16 @@
 /* Begin PBXFileReference section */
 		7F1D2DE35F46B871EB69CE0E /* Pods_KAS4Elderly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KAS4Elderly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C602CEF74A92EFB5C54FCF0 /* Pods-KAS4Elderly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KAS4Elderly.release.xcconfig"; path = "Target Support Files/Pods-KAS4Elderly/Pods-KAS4Elderly.release.xcconfig"; sourceTree = "<group>"; };
-		CD02A5B024002D3B00E32523 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorExtension.swift; path = "../../Pods/Target Support Files/LocationPickerViewController/ColorExtension.swift"; sourceTree = "<group>"; };
 		CD143BBE23FFFDE4007FF873 /* MySkillsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySkillsView.swift; sourceTree = "<group>"; };
+		CD2DB8F92408019200A62434 /* LocationPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
+		CD2DB8FB2408036C00A62434 /* LocationPickerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerWrapper.swift; sourceTree = "<group>"; };
 		CD2F7F7B23EC2C5B00B754DE /* AddSkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSkillView.swift; sourceTree = "<group>"; };
+		CD5FDF6624027BB1005D3CDF /* KAS4Elderly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KAS4Elderly.entitlements; sourceTree = "<group>"; };
+		CD5FDF672402E05C005D3CDF /* SkillKarte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillKarte.swift; sourceTree = "<group>"; };
+		CD5FDF692402E08B005D3CDF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		CD5FDF7324031FE5005D3CDF /* SkillDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillDetailView.swift; sourceTree = "<group>"; };
+		CD5FDF782403D7FB005D3CDF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		CD5FDF7A2403D8DF005D3CDF /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		CD9839B723F56C49007DFC32 /* EditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSheet.swift; sourceTree = "<group>"; };
 		CDA2B09123F28E7E00BE1EF4 /* ErrorTranslations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTranslations.swift; sourceTree = "<group>"; usesTabs = 1; };
 		CDBD3F7023EB3BC6000D741A /* KAS4Elderly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KAS4Elderly.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +81,6 @@
 		CDBD3F9123EB3D82000D741A /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; usesTabs = 1; };
 		CDBD3F9223EB3D82000D741A /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CDBD3F9323EB3D82000D741A /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; usesTabs = 1; };
-		CDBD3F9423EB3D82000D741A /* LocationPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPickerView.swift; sourceTree = "<group>"; };
 		CDBD3F9523EB3D82000D741A /* AgeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgeTextField.swift; sourceTree = "<group>"; usesTabs = 1; };
 		CDBD3F9823EB3D82000D741A /* Skill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; usesTabs = 1; };
 		CDBD3F9923EB3D82000D741A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -131,6 +142,7 @@
 		CDBD3F7223EB3BC6000D741A /* KAS4Elderly */ = {
 			isa = PBXGroup;
 			children = (
+				CD5FDF6624027BB1005D3CDF /* KAS4Elderly.entitlements */,
 				CDBD3F7323EB3BC6000D741A /* AppDelegate.swift */,
 				CDBD3F7523EB3BC6000D741A /* SceneDelegate.swift */,
 				CDBD3F7723EB3BC6000D741A /* ContentView.swift */,
@@ -167,7 +179,6 @@
 				CDBD3F9923EB3D82000D741A /* User.swift */,
 				CDBD3F9A23EB3D82000D741A /* UserData.swift */,
 				CDA2B09123F28E7E00BE1EF4 /* ErrorTranslations.swift */,
-				CD02A5B024002D3B00E32523 /* ColorExtension.swift */,
 			);
 			name = customClasses;
 			sourceTree = "<group>";
@@ -178,10 +189,15 @@
 				CDBD3F9023EB3D82000D741A /* PasswordTextField.swift */,
 				CDBD3F9523EB3D82000D741A /* AgeTextField.swift */,
 				CDBD3F9E23EB3D82000D741A /* LocationView.swift */,
-				CDBD3F9423EB3D82000D741A /* LocationPickerView.swift */,
+				CD2DB8FB2408036C00A62434 /* LocationPickerWrapper.swift */,
+				CD2DB8F92408019200A62434 /* LocationPicker.swift */,
 				CDBD3FA123EB3D82000D741A /* EmailTextField.swift */,
 				CDBD3FA223EB3D82000D741A /* NameTextField.swift */,
 				CD9839B723F56C49007DFC32 /* EditSheet.swift */,
+				CD5FDF692402E08B005D3CDF /* MapView.swift */,
+				CD5FDF7324031FE5005D3CDF /* SkillDetailView.swift */,
+				CD5FDF7A2403D8DF005D3CDF /* ImagePickerView.swift */,
+				CD5FDF782403D7FB005D3CDF /* ImagePicker.swift */,
 			);
 			name = "supporting Views";
 			sourceTree = "<group>";
@@ -192,6 +208,7 @@
 				CDBD3F9223EB3D82000D741A /* ProfileView.swift */,
 				CD143BBE23FFFDE4007FF873 /* MySkillsView.swift */,
 				CD2F7F7B23EC2C5B00B754DE /* AddSkillView.swift */,
+				CD5FDF672402E05C005D3CDF /* SkillKarte.swift */,
 			);
 			name = "Tab Bar views";
 			sourceTree = "<group>";
@@ -326,22 +343,27 @@
 			files = (
 				CDBD3FB623EB3D82000D741A /* EmailTextField.swift in Sources */,
 				CDBD3F7423EB3BC6000D741A /* AppDelegate.swift in Sources */,
+				CD5FDF792403D7FB005D3CDF /* ImagePicker.swift in Sources */,
 				CDA2B09223F28E7E00BE1EF4 /* ErrorTranslations.swift in Sources */,
+				CD5FDF6A2402E08B005D3CDF /* MapView.swift in Sources */,
 				CDBD3FAA23EB3D82000D741A /* LoginView.swift in Sources */,
+				CD2DB8FA2408019200A62434 /* LocationPicker.swift in Sources */,
 				CD9839B823F56C49007DFC32 /* EditSheet.swift in Sources */,
 				CDBD3FA823EB3D82000D741A /* StartView.swift in Sources */,
 				CDBD3FAE23EB3D82000D741A /* Skill.swift in Sources */,
 				CDBD3F7623EB3BC6000D741A /* SceneDelegate.swift in Sources */,
 				CDBD3FA723EB3D82000D741A /* PasswordTextField.swift in Sources */,
+				CD5FDF682402E05C005D3CDF /* SkillKarte.swift in Sources */,
 				CDBD3FB423EB3D82000D741A /* RegisterView.swift in Sources */,
 				CDBD3FB023EB3D82000D741A /* UserData.swift in Sources */,
-				CDBD3FAB23EB3D82000D741A /* LocationPickerView.swift in Sources */,
-				CD02A5B124002D3B00E32523 /* ColorExtension.swift in Sources */,
 				CD2F7F7C23EC2C5B00B754DE /* AddSkillView.swift in Sources */,
+				CD2DB8FC2408036C00A62434 /* LocationPickerWrapper.swift in Sources */,
 				CD143BBF23FFFDE4007FF873 /* MySkillsView.swift in Sources */,
 				CDBD3FA923EB3D82000D741A /* ProfileView.swift in Sources */,
 				CDBD3FB723EB3D82000D741A /* NameTextField.swift in Sources */,
+				CD5FDF7424031FE5005D3CDF /* SkillDetailView.swift in Sources */,
 				CDBD3F7823EB3BC6000D741A /* ContentView.swift in Sources */,
+				CD5FDF7B2403D8DF005D3CDF /* ImagePickerView.swift in Sources */,
 				CDBD3FB323EB3D82000D741A /* LocationView.swift in Sources */,
 				CDBD3FAC23EB3D82000D741A /* AgeTextField.swift in Sources */,
 				CDBD3FAF23EB3D82000D741A /* User.swift in Sources */,
@@ -481,6 +503,7 @@
 			baseConfigurationReference = DDAE9F59F4BFC6657584001B /* Pods-KAS4Elderly.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KAS4Elderly/KAS4Elderly.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"KAS4Elderly/Preview Content\"";
 				DEVELOPMENT_TEAM = 2WV4PNAXJT;
@@ -502,6 +525,7 @@
 			baseConfigurationReference = 8C602CEF74A92EFB5C54FCF0 /* Pods-KAS4Elderly.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KAS4Elderly/KAS4Elderly.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"KAS4Elderly/Preview Content\"";
 				DEVELOPMENT_TEAM = 2WV4PNAXJT;
