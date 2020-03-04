@@ -27,7 +27,7 @@ struct ProfileView: View {
                         .overlay(Circle().stroke(Color.secondary, lineWidth: CGFloat(integerLiteral: 4)))
                         .padding()
                         .sheet(isPresented: self.$showImagePicker) {
-                            ImagePicker(image: self.$userData.localUser.image)
+                            UserImagePicker(image: self.$userData.localUser.image, userData: self.userData)
                     }
                 }
                 
@@ -71,6 +71,18 @@ struct ProfileView: View {
                 Text(userData.errorMessage).foregroundColor(.red)
                 
                 //wohnort change
+                HStack {
+                    Text("Wohnort \(userData.localUser.location.latitude); \(userData.localUser.location.longitude)").padding()
+                    Spacer()
+                    Button(action: {
+                        self.userData.editing = true
+                        self.userData.editNumber = 4
+                    }) {
+                        Image(systemName: "pencil.circle")
+                    }.padding()
+                }
+                
+                
                 Button("Passwort ändern"){
                     self.userData.resetPassword(for: self.userData.localUser.email)
                 }
@@ -79,9 +91,6 @@ struct ProfileView: View {
                     self.userData.logOut()
                 }) {
                     Text("Abmelden").multilineTextAlignment(.leading)
-                }
-                .popover(isPresented: $userData.showPopover){
-                    ContentView(userData: self.userData)
                 }
                 
             }

@@ -24,7 +24,7 @@ struct SkillKarte: View {
             
         }
         .sheet(isPresented: $showingPlaceDetails, content: {
-            SkillDetailView(userData: self.userData, skill: self.selectedPlace!.skill )
+            SkillDetailView(owned: false, userData: self.userData, skill: self.selectedPlace!.skill )
         })
         .onAppear{
             self.locations = self.userData.allLocations()

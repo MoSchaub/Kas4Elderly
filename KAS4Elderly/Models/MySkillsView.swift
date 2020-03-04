@@ -20,7 +20,7 @@ struct MySkillsView: View {
             List{
                 Section(footer: Text(userData.errorMessage).foregroundColor(.red)){
                     ForEach(userData.localUserSkills) { item in
-                        NavigationLink(destination: SkillDetailView(userData: self.userData, skill: item)) {
+                        NavigationLink(destination: SkillDetailView(owned: true, userData: self.userData, skill: item)) {
                             SkillRow(skill: item)
                         }
                     }

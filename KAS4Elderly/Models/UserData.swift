@@ -6,19 +6,14 @@
 //  Copyright © 2020 Moritz Schaub. All rights reserved.
 //
 
-import Foundation
 import MapKit
 import Parse
-import Combine
 import SwiftUI
 
 class UserData: ObservableObject {
 	
 	@Published var localUserSkills: [Skill]
 	@Published var localSkills: [Skill]
-	
-	
-	var showPopover = false
 	
 	private var user: User?{
 		User(self.currUser()!)
@@ -31,16 +26,9 @@ class UserData: ObservableObject {
 	
 	@Published var loggedIn = false
 	
-	@Published var username = UserDefaults.standard.string(forKey: "username"){
-		didSet{
-			UserDefaults.standard.set(username, forKey: "username")
-		}
-	}
-	@Published var password = UserDefaults.standard.string(forKey: "password"){
-		didSet{
-			UserDefaults.standard.set(password, forKey: "password")
-		}
-	}
+	@Published var username = UserDefaults.standard.string(forKey: "username")
+		
+	@Published var password = UserDefaults.standard.string(forKey: "password")
 	
 	
 	//profileView
@@ -77,11 +65,10 @@ class UserData: ObservableObject {
 		self.updateSkills()
 		if UserDefaults.standard.bool(forKey: "loggedIn"){
 			self.login(name: username!, password: password!)
-			self.localUser = user!
 		}
 	}
 	
-	
+	//MARK: Register functions
 	
 	func weiter() {
 		if editing{
@@ -192,13 +179,7 @@ class UserData: ObservableObject {
 		}
 	}
 	
-	private func currUser() -> PFUser?{
-		if let currentUser = PFUser.current() {
-			return currentUser
-		} else {
-			return nil
-		}
-	}
+	//MARK: Skill functions
 	
 	func updateSkills() {
 
@@ -240,7 +221,39 @@ class UserData: ObservableObject {
 		}
 	}
 	
-	
+	func deleteSkills(at offsets: IndexSet){
+		
+		//for every index in indexSet
+		for index in offsets{
+			
+			//get the skill
+			let skill = localUserSkills[index]
+			let query = PFQuery(className: "Skill")
+			
+			query.getObjectInBackground(withId: skill.id) { (parseObject, error) in
+				if error != nil {
+					print(error!)
+					self.errorMessage = error!.localizedDescription
+				} else if let parseObject = parseObject {
+					//if it exists delete it from Cloud Database
+					parseObject.deleteInBackground { (succeded, error) in
+						if let error = error{
+							return
+								self.errorMessage = error.localizedDescription
+						} else{
+							//update local stroge
+							self.localUserSkills.remove(at: index)
+							self.updateUserSkills()
+							self.errorMessage = "gelöscht"
+						}
+					}
+				}
+			}
+			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+				self.errorMessage = ""
+			}
+		}
+	}
 	
 	private func updateUserSkills(){
 		if currUser() != nil{
@@ -303,6 +316,16 @@ class UserData: ObservableObject {
 		}
 	}
 	
+	//MARK: User functions
+	
+	private func currUser() -> PFUser?{
+		if let currentUser = PFUser.current() {
+			return currentUser
+		} else {
+			return nil
+		}
+	}
+
 	func createUser() {
 		let user = PFUser()
 		user.username = localUser.name
@@ -337,11 +360,8 @@ class UserData: ObservableObject {
 				self.username = name
 				self.password = password
 				self.loggedIn = true
-				self.showPopover = false
 				UserDefaults.standard.set(true, forKey: "loggedIn")
-				self.localUser = self.user!
-				self.updateUserSkills()
-				
+				self.setupAfterLogin()
 				UserDefaults.standard.synchronize()
 			} else {
 				// The login failed. Check error to see why.
@@ -355,12 +375,20 @@ class UserData: ObservableObject {
 		
 	}
 	
+	func setupAfterLogin(){
+		self.localUser = user!
+		self.updateUserSkills()
+		UserDefaults.standard.set(self.username, forKey: "username")
+		UserDefaults.standard.set(self.password, forKey: "password")
+	}
+	
 	func logOut(){
 		self.errorMessage = ""
 		self.loggedIn = false
 		UserDefaults.standard.set(false, forKey: "loggedIn")
+		UserDefaults.standard.set("",forKey: "username")
+		UserDefaults.standard.set("",forKey: "password")
 		UserDefaults.standard.synchronize()
-		showPopover = true
 	}
 	
 	func update(skill: Skill){
@@ -376,7 +404,6 @@ class UserData: ObservableObject {
 				parseObject["longitude"] = skill.location.longitude
 				parseObject["latitude"] = skill.location.latitude
 				parseObject["type"] = skill.category.rawValue
-				parseObject["owner"] = self.user!
 				parseObject.objectId = skill.id
 				
 				parseObject.saveInBackground()
@@ -412,39 +439,7 @@ class UserData: ObservableObject {
 		
 	}
 	
-	func deleteSkills(at offsets: IndexSet){
-		
-		//for every index in indexSet
-		for index in offsets{
-			
-			//get the skill
-			let skill = localUserSkills[index]
-			let query = PFQuery(className: "Skill")
-			
-			query.getObjectInBackground(withId: skill.id) { (parseObject, error) in
-				if error != nil {
-					print(error!)
-					self.errorMessage = error!.localizedDescription 
-				} else if let parseObject = parseObject {
-					//if it exists delete it from Cloud Database
-					parseObject.deleteInBackground { (succeded, error) in
-						if let error = error{
-							return
-								self.errorMessage = error.localizedDescription
-						} else{
-							//update local stroge
-							self.localUserSkills.remove(at: index)
-							self.updateUserSkills()
-							self.errorMessage = "gelöscht"
-						}
-					}
-				}
-			}
-			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
-				self.errorMessage = ""
-			}
-		}
-	}
+	
 	
 	func deleteUser() {
 		let currentUser = PFUser.current()
@@ -475,8 +470,7 @@ class UserData: ObservableObject {
 	
 	
 	// o)l*3nfJgsmUoFkJWa&C
-	
-	
+
 	func updateAddress(for skill: Skill){
 		var skill = skill
 		
@@ -496,7 +490,6 @@ class UserData: ObservableObject {
 			skill.address = placemarks.areasOfInterest?.first ?? "\(streetName) \(streetNumber)"
 		}
 	}
-	
 	
 }
 

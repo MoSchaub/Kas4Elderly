@@ -26,22 +26,26 @@ struct LocationPickerWrapper: View {
                         }
                         VStack {
                             Spacer()
-                            
-                            Button(action: {
-                                self.putPinDown()
-                            }) {
-                                if pinDown{
-                                    Text("Cancel")
-                                } else{
-                                    Text("Select")
+                            HStack{
+                                Spacer()
+                                Button(action: {
+                                    self.putPinDown()
+                                }) {
+                                    if pinDown{
+                                        Text("Cancel")
+                                    } else{
+                                        Text("Select")
+                                    }
                                 }
+                                .padding()
+                                .background(Color.black.opacity(0.75))
+                                .foregroundColor(.white)
+                                .font(.title)
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                                .padding(.bottom, 5)
+                                .padding(.trailing)
                             }
-                            .padding()
-                            .background(Color.black.opacity(0.75))
-                            .foregroundColor(.white)
-                            .font(.title)
-                            .clipShape(RoundedRectangle(cornerRadius: 25))
-                            .padding(.bottom, 5)
+                           
                             
                         }
                     }

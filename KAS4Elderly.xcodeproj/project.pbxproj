@@ -10,9 +10,11 @@
 		CD143BBF23FFFDE4007FF873 /* MySkillsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD143BBE23FFFDE4007FF873 /* MySkillsView.swift */; };
 		CD2DB8FA2408019200A62434 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DB8F92408019200A62434 /* LocationPicker.swift */; };
 		CD2DB8FC2408036C00A62434 /* LocationPickerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DB8FB2408036C00A62434 /* LocationPickerWrapper.swift */; };
+		CD2DDEDE240860EB00873BD6 /* UserImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DDEDD240860EB00873BD6 /* UserImagePicker.swift */; };
 		CD2F7F7C23EC2C5B00B754DE /* AddSkillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F7F7B23EC2C5B00B754DE /* AddSkillView.swift */; };
 		CD328E9323EC5E4500F84E18 /* Pods_KAS4Elderly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1D2DE35F46B871EB69CE0E /* Pods_KAS4Elderly.framework */; };
 		CD328E9423EC5E4500F84E18 /* Pods_KAS4Elderly.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7F1D2DE35F46B871EB69CE0E /* Pods_KAS4Elderly.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD484008240BF670005D3A70 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD484007240BF670005D3A70 /* MapKit.framework */; };
 		CD5FDF682402E05C005D3CDF /* SkillKarte.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5FDF672402E05C005D3CDF /* SkillKarte.swift */; };
 		CD5FDF6A2402E08B005D3CDF /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5FDF692402E08B005D3CDF /* MapView.swift */; };
 		CD5FDF7424031FE5005D3CDF /* SkillDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5FDF7324031FE5005D3CDF /* SkillDetailView.swift */; };
@@ -60,7 +62,9 @@
 		CD143BBE23FFFDE4007FF873 /* MySkillsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySkillsView.swift; sourceTree = "<group>"; };
 		CD2DB8F92408019200A62434 /* LocationPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
 		CD2DB8FB2408036C00A62434 /* LocationPickerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerWrapper.swift; sourceTree = "<group>"; };
+		CD2DDEDD240860EB00873BD6 /* UserImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImagePicker.swift; sourceTree = "<group>"; };
 		CD2F7F7B23EC2C5B00B754DE /* AddSkillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSkillView.swift; sourceTree = "<group>"; };
+		CD484007240BF670005D3A70 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CD5FDF6624027BB1005D3CDF /* KAS4Elderly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KAS4Elderly.entitlements; sourceTree = "<group>"; };
 		CD5FDF672402E05C005D3CDF /* SkillKarte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillKarte.swift; sourceTree = "<group>"; };
 		CD5FDF692402E08B005D3CDF /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD484008240BF670005D3A70 /* MapKit.framework in Frameworks */,
 				CD328E9323EC5E4500F84E18 /* Pods_KAS4Elderly.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,6 +112,7 @@
 		15949941C923083AF747617B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD484007240BF670005D3A70 /* MapKit.framework */,
 				7F1D2DE35F46B871EB69CE0E /* Pods_KAS4Elderly.framework */,
 			);
 			name = Frameworks;
@@ -198,6 +204,7 @@
 				CD5FDF7324031FE5005D3CDF /* SkillDetailView.swift */,
 				CD5FDF7A2403D8DF005D3CDF /* ImagePickerView.swift */,
 				CD5FDF782403D7FB005D3CDF /* ImagePicker.swift */,
+				CD2DDEDD240860EB00873BD6 /* UserImagePicker.swift */,
 			);
 			name = "supporting Views";
 			sourceTree = "<group>";
@@ -360,6 +367,7 @@
 				CD2DB8FC2408036C00A62434 /* LocationPickerWrapper.swift in Sources */,
 				CD143BBF23FFFDE4007FF873 /* MySkillsView.swift in Sources */,
 				CDBD3FA923EB3D82000D741A /* ProfileView.swift in Sources */,
+				CD2DDEDE240860EB00873BD6 /* UserImagePicker.swift in Sources */,
 				CDBD3FB723EB3D82000D741A /* NameTextField.swift in Sources */,
 				CD5FDF7424031FE5005D3CDF /* SkillDetailView.swift in Sources */,
 				CDBD3F7823EB3BC6000D741A /* ContentView.swift in Sources */,

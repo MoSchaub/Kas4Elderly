@@ -11,6 +11,7 @@ import MapKit
 
 struct LocationView: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userData: UserData
     @State private var locations = [MKPointAnnotation]()
     
@@ -29,6 +30,7 @@ struct LocationView: View {
                         
                         Button(action: {
                             self.userData.weiter()
+                            self.presentationMode.wrappedValue.dismiss()
                         }) {
                             Text("weiter")
                                 
