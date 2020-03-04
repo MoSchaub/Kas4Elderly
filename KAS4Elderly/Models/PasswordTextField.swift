@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PasswordTextField: View {
+struct PasswordTextField: View{
     
     @ObservedObject var userData: UserData
     
@@ -19,17 +19,19 @@ struct PasswordTextField: View {
                 self.userData.weiter()
             })
                 .modifier(TextFieldModifier())
+                .textContentType(.newPassword)
             
             SecureField("Passwort erneut eingeben", text: self.$userData.secondPW, onCommit: {
                  self.userData.weiter()
              })
                 .modifier(TextFieldModifier())
+                .textContentType(.newPassword)
             
             Spacer()
             
             Text(userData.errorMessage)
                 .foregroundColor(.red)
-            .animation(.default)
+                .animation(.default)
             
         }
     }

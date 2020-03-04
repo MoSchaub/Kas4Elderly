@@ -19,15 +19,9 @@ struct MySkillsView: View {
         NavigationView{
             List{
                 Section(footer: Text(userData.errorMessage).foregroundColor(.red)){
-                    ForEach(userData.localSkills) { item in
-                        HStack {
-                            VStack {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.category.rawValue)
-                            }
-                            Spacer()
-                            Text(" ")
+                    ForEach(userData.localUserSkills) { item in
+                        NavigationLink(destination: SkillDetailView(owned: true, userData: self.userData, skill: item)) {
+                            SkillRow(skill: item)
                         }
                     }
                     .onDelete(perform: self.userData.deleteSkills)
@@ -41,7 +35,7 @@ struct MySkillsView: View {
                 Image(systemName: "plus")
             })
                 .sheet(isPresented: $showAddSkillView) {
-                    AddSkillView(userData: self.userData, skill: Skill(name: "Skill", maximumPeople: 3, minimumPeople: 10, location: self.userData.localUser.location, category: .other, user: self.userData.localUser))
+                    AddSkillView(userData: self.userData, skill: Skill(name: "Skill", maximumPeople: 10, minimumPeople: 3, location: self.userData.localUser.location, category: .other, user: self.userData.localUser, address: " "))
             }
         }
     }
@@ -50,5 +44,22 @@ struct MySkillsView: View {
 struct MySkills_Previews: PreviewProvider {
     static var previews: some View {
         MySkillsView(userData: UserData())
+    }
+}
+
+struct SkillRow: View {
+    
+    var skill: Skill
+    
+    var body: some View {
+        HStack {
+            VStack {
+                Text(skill.name)
+                    .font(.headline)
+                Text(skill.category.rawValue)
+            }
+            Spacer()
+            Text(skill.address)
+        }
     }
 }

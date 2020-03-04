@@ -10,9 +10,9 @@ import Foundation
 import MapKit
 import Parse
 
-struct Skill: Identifiable, Equatable{
+struct Skill: Identifiable{
 	
-	enum Category : String{
+	enum Category : String, CustomStringConvertible{
 		
 		case food = "Ernährung"
 		case fitness = "Fitness"
@@ -21,12 +21,17 @@ struct Skill: Identifiable, Equatable{
 		
 		case other = "sonstiges"
 		
+		var description: String{
+			self.rawValue
+		}
 		static var all = [Category.food,.fitness,.media,.mentalFitness,.other]
 		
 		static func cat(for string: String) -> Category{
 			Category.all.first(where: {$0.rawValue == string}) ?? Category.all.last!
 		}
 	}
+	
+	var address: String
 	
 	var id : String
 	
@@ -42,17 +47,36 @@ struct Skill: Identifiable, Equatable{
 	
 	var owner : User
 	
+	var imageString: String?
+	
+	var image: UIImage?{
+        get{
+            let data = Data(base64Encoded: imageString ?? defaultImage )
+        return UIImage(data: data!)
+        }
+        set{
+            if newValue == nil{
+                imageString = UIImage(systemName: "camera.on.rectangle")!.base64(format: .PNG)
+            }
+            else {
+                imageString = newValue!.base64(format: .PNG)
+            }
+        }
+    }
+	
 	init(_ pfObject: PFObject) {
 		self.category = Category.cat(for: pfObject["type"] as! String)
 		self.id = pfObject.objectId!
 		self.name = pfObject["name"] as! String
 		self.maximumPeople = pfObject["max"] as! Int
 		self.minimumPeople = pfObject["min"] as! Int
-		self.location = CLLocationCoordinate2D(latitude: pfObject["latitude"] as! Double, longitude: pfObject["latitude"] as! Double)
+		self.location = CLLocationCoordinate2D(latitude: pfObject["latitude"] as! Double, longitude: pfObject["longitude"] as! Double)
 		self.owner = User(PFUser.current()!)
+		self.address = pfObject["address"] as! String
+		self.imageString = pfObject["imageString"] as? String
 	}
 	
-	init(name: String, maximumPeople: Int, minimumPeople: Int, location: CLLocationCoordinate2D, category: Category, user: User) {
+	init(name: String, maximumPeople: Int, minimumPeople: Int, location: CLLocationCoordinate2D, category: Category, user: User, address: String, image: UIImage? = nil) {
 		self.id = UUID().uuidString
 		self.name = name
 		self.maximumPeople = maximumPeople
@@ -60,10 +84,22 @@ struct Skill: Identifiable, Equatable{
 		self.location = location
 		self.category = category
 		self.owner = user
+		self.address = ""
+		self.image = image
 	}
+	
+	static var example = Skill(name: "Skill", maximumPeople: 10, minimumPeople: 3, location: User.example.location , category: .other, user: User.example, address: "Examplestraße 1")
 	
 	static func == (lhs: Skill, rhs: Skill) -> Bool {
 		lhs.id == rhs.id
+	}
+	
+	func annotation() -> SkillAnnotation {
+		
+		let annotation = SkillAnnotation(coordinate: self.location, skill: self)
+		annotation.title = name
+		
+		return annotation
 	}
 
 }

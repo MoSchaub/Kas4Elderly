@@ -11,12 +11,13 @@ import MapKit
 
 struct LocationView: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var userData: UserData
-    
+    @State private var locations = [MKPointAnnotation]()
     
     var body: some View {
         VStack{
-            LocationPickerView(location: $userData.localUser.location).edgesIgnoringSafeArea(.all)
+            LocationPickerWrapper(centerCoordinate: $userData.localUser.location).edgesIgnoringSafeArea(.all)
                 .overlay(
                     VStack{
                         
@@ -29,6 +30,7 @@ struct LocationView: View {
                         
                         Button(action: {
                             self.userData.weiter()
+                            self.presentationMode.wrappedValue.dismiss()
                         }) {
                             Text("weiter")
                                 
@@ -45,7 +47,7 @@ struct LocationView: View {
     }
 }
 
-struct LocationPicker_Previews: PreviewProvider {
+struct LocationView_Previews: PreviewProvider {
     static var previews: some View {
         LocationView(userData: UserData())
             .environment(\.colorScheme, .dark)

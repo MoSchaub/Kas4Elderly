@@ -7,6 +7,7 @@ target 'KAS4Elderly' do
 
   # Pods for KAS4Elderly
   pod 'LocationPickerViewController'
+  pod 'LocationPicker'
   pod 'Parse'
 
 end

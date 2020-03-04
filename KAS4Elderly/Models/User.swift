@@ -61,6 +61,8 @@ struct User: Hashable, Equatable{
         self.imageString = imageString
     }
     
+    static var example = User(name: "User", password: "", email: "example@pfaender.net", age: "80", location: CLLocationCoordinate2D(latitude: 51.4825749214, longitude: 0))
+    
 }
 
 public enum ImageFormat {
