@@ -6,8 +6,6 @@ target 'KAS4Elderly' do
   use_frameworks!
 
   # Pods for KAS4Elderly
-  pod 'LocationPickerViewController'
-  pod 'LocationPicker'
   pod 'Parse'
 
 end

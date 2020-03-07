@@ -174,8 +174,8 @@
             filePath = "KAS4Elderly/Models/UserData.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "396"
-            endingLineNumber = "396"
+            startingLineNumber = "400"
+            endingLineNumber = "400"
             landmarkName = "update(skill:)"
             landmarkType = "7">
             <Locations>

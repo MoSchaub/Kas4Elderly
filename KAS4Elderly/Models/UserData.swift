@@ -172,11 +172,11 @@ class UserData: ObservableObject {
 		if self.currentProperty > 0 {
 			self.currentProperty += -1
 			self.errorMessage = ""
-		} else{
-			self.showRegisterView = false
-			self.errorMessage = ""
-			self.currentProperty = 0
-		}
+		} //else{
+//			self.showRegisterView = false
+//			self.errorMessage = ""
+//			self.currentProperty = 0
+//		}
 	}
 	
 	//MARK: Skill functions
@@ -258,6 +258,7 @@ class UserData: ObservableObject {
 	private func updateUserSkills(){
 		if currUser() != nil{
 			let query = PFQuery(className:"Skill")
+			query.whereKey("owner", equalTo: currUser() as Any)
 			query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) in
 				if let error = error {
 					// Log details of the failure
@@ -280,7 +281,9 @@ class UserData: ObservableObject {
 							}
 						}
 						self.localUserSkills = filteredResults
+						return
 					}
+					self.localUserSkills = results
 				}
 			}
 		}
