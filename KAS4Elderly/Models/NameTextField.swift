@@ -9,31 +9,18 @@
 import SwiftUI
 
 struct NameTextField: View {
-    
-    @ObservedObject var userData: UserData
-    
+    @Binding var name: String
     
     var body: some View {
-        VStack {
-            TextField("Name eingeben", text: $userData.localUser.name, onCommit:{
-                self.userData.weiter()
-            })
-                .modifier(TextFieldModifier())
-                .textContentType(.username)
-            
-            Spacer()
-            
-            Text(userData.errorMessage)
-                .foregroundColor(.red)
-            .animation(.default)
-            
-        }
+        TextField("Name eingeben", text: $name)
+            .modifier(TextFieldModifier())
+            //.textContentType(.username)
     }
     
 }
 
 struct NameTextField_Previews: PreviewProvider {
     static var previews: some View {
-        NameTextField( userData: UserData())
+        NameTextField(name: .constant(""))
     }
 }

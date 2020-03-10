@@ -25,13 +25,16 @@ struct SkillDetailView: View {
     var body: some View {
         NavigationView{
             Form{
-                
-                Image("Kochkurs")
+                Image(uiImage: skill.image ?? UIImage(data: Data(base64Encoded: defaultImage)! )!)
                     .resizable()
                     .scaledToFit()
-//                Image(uiImage: skill.image ?? UIImage(data: Data(base64Encoded: defaultImage)! )!)
-//                    .resizable()
-//                    .scaledToFit()
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.primary, lineWidth: 1))
+                    .shadow(color: .primary, radius: 2)
+                    .padding()
+                    .animation(.default)
+                
                 Section(header: Text("Name")){
                     Text(skill.name)
                 }
@@ -63,7 +66,8 @@ struct SkillDetailView: View {
                 }
             }
         }
-        .navigationBarTitle(skill.name)
+        .navigationBarTitle(Text(skill.name), displayMode: .inline)
+        .navigationBarHidden(!owned)
         .navigationBarItems(trailing: Button(action: {
                 if self.owned{
                     if self.editingMode{

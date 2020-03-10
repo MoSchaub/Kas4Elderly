@@ -35,29 +35,10 @@ class UserData: ObservableObject {
 	@Published var editing = false
 	@Published var editNumber = 0
 	
-	@Published var showLoginView = false
-	
 	//register View
-	@Published var showRegisterView = false
+	//@Published var showRegisterView = false
 	@Published var currentProperty = 0
 	@Published var errorMessage = ""
-	
-	func editTextField(with number: Int) -> some View{
-		currentProperty = number
-		return Group{
-			if number == 0 {
-				NameTextField(userData: self)
-			} else if number == 2 {
-				AgeTextField(userData: self)
-			} else if number == 3{
-				EmailTextField(userData: self)
-			} else if number == 4 {
-				LocationView(userData: self)
-			} else {
-				Text("Something went wrong")
-			}
-		}
-	}
 	
 	init() {
 		self.localUserSkills = [Skill]()
@@ -69,24 +50,6 @@ class UserData: ObservableObject {
 	}
 	
 	//MARK: Register functions
-	
-	func weiter() {
-		if editing{
-			if validate(number: editNumber){
-				errorMessage = ""
-				self.updateUser()
-			}
-		}else{
-			if validate(number: currentProperty){
-				errorMessage = ""
-				if currentProperty < 4 {
-					currentProperty += 1
-				} else if currentProperty == 4{
-					self.createUser()
-				}
-			}
-		}
-	}
 	
 	func property(for number: Int) -> Any?{
 		switch number {
@@ -105,53 +68,71 @@ class UserData: ObservableObject {
 		}
 	}
 	
-	func validate(number: Int) ->Bool{
-		if number < 4{
-			let property = self.property(for: number) as! String
-			
-			if number != 2{
-				if property == "" {
+	func validate(name: String, password: String, secondPassword: String, age: String, email: String, secondEmail: String, currentPoperty: Int) ->Bool{
+		
+		if currentPoperty == 1{
+			let strings = [name, password, secondPassword, age, email, secondEmail]
+			for string in strings{
+				if string == ""{
 					errorMessage = "Bitte etwas eingeben"
 					return false
 				}
-				
-				if number == 1{ //password validation
-					if localUser.password != self.secondPW{
-						errorMessage = "Beide Male muss das selbe Passwort eingegeben werden"
+			}
+			
+			//username
+			if let query = PFUser.query(){
+				query.whereKey("username", equalTo: name as Any)
+				if let objects =  try? query.findObjects(){
+					if objects.count != 0{
+						errorMessage = "username schon vergeben"
 						return false
-					} else if !isValidPassword(localUser.password){
-						errorMessage = "Bitte ein sicheres Passwort mit Buchstaben, Zahlen und mindestens 8 Zeichen eingeben"
-						return false
-					} else{
-						return true
 					}
-				} else if number == 3{ //email validation
-					if localUser.email != self.secondEm{
-						errorMessage = "Beide Male muss die selbe E-mail eingegeben werden"
-						return false
-					} else if !isValidEmail(localUser.email){
-						errorMessage = "Bitte eine E-mail Adresse eingeben"
-						return false
-					} else{
-						return true
-					}
-				} else if number == 0{
-					return true
-				}
-			} else{
-				if Int(property) != nil{
-					return true
-				} else{
-					errorMessage = "Bitte Zahlen eingeben"
-					return false
 				}
 			}
-		} else if number == 4{ //location
-			return true
-		} else{
-			return false
+			
+			//password
+			if password != secondPassword{
+				errorMessage = "Beide Male muss das selbe Passwort eingegeben werden"
+				return false
+			} else if !isValidPassword(password){
+				errorMessage = "Bitte ein sicheres Passwort mit Buchstaben, Zahlen und mindestens 8 Zeichen eingeben"
+				return false
+			}
+			
+			//email
+			if email != secondEmail{
+				errorMessage = "Beide Male muss das selbe Passwort eingegeben werden"
+				return false
+			} else if !isValidEmail(email){
+				errorMessage = "Bitte eine E-mail Adresse eingeben"
+				return false
+			} else if let query = PFUser.query(){
+				query.whereKey("email", equalTo: email as Any)
+				if let objects =  try? query.findObjects(){
+					if objects.count != 0{
+						errorMessage = "email schon verwendet"
+						return false
+					}
+				}
+			}
+			
+			//age
+			if let age = Int(age) {
+				if age < 1{
+					errorMessage = "Bitte positive Zahlen eingeben"
+					return false
+				}
+			} else{
+				errorMessage = "Bitte Zahlen eingeben"
+				return false
+			}
+			
+		} else if currentPoperty == 2{
+			//location
+		} else if currentPoperty == 3{
+			//foto
 		}
-		return false
+		return true
 	}
 	
 	func isValidPassword(_ password: String) -> Bool {
@@ -228,29 +209,60 @@ class UserData: ObservableObject {
 			
 			//get the skill
 			let skill = localUserSkills[index]
-			let query = PFQuery(className: "Skill")
-			
-			query.getObjectInBackground(withId: skill.id) { (parseObject, error) in
-				if error != nil {
-					print(error!)
-					self.errorMessage = error!.localizedDescription
-				} else if let parseObject = parseObject {
-					//if it exists delete it from Cloud Database
-					parseObject.deleteInBackground { (succeded, error) in
-						if let error = error{
-							return
-								self.errorMessage = error.localizedDescription
-						} else{
-							//update local stroge
+			self.deleteSkills(with: skill.id)
+		}
+	}
+	
+	func deleteSkills(with id: String){
+		let query = PFQuery(className: "Skill")
+		
+		query.getObjectInBackground(withId: id) { (parseObject, error) in
+			if error != nil {
+				print(error!)
+				self.errorMessage = error!.localizedDescription
+			} else if let parseObject = parseObject {
+				//if it exists delete it from Cloud Database
+				parseObject.deleteInBackground { (succeded, error) in
+					if let error = error{
+						return
+							self.errorMessage = error.localizedDescription
+					} else{
+						//update local stroge
+						if  let index = self.localUserSkills.firstIndex(where: { $0.id == id}){
 							self.localUserSkills.remove(at: index)
 							self.updateUserSkills()
 							self.errorMessage = "gelöscht"
 						}
+						
 					}
 				}
 			}
-			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
-				self.errorMessage = ""
+		}
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+			self.errorMessage = ""
+		}
+	}
+	
+	func update(skill: Skill){
+		let query = PFQuery(className:"Skill")
+		
+		query.getObjectInBackground(withId: skill.id) { (parseObject, error) in
+			if error != nil {
+				print(error!)
+			} else if let parseObject = parseObject {
+				parseObject["name"] = skill.name
+				parseObject["max"] = skill.maximumPeople
+				parseObject["min"] = skill.minimumPeople
+				parseObject["longitude"] = skill.location.longitude
+				parseObject["latitude"] = skill.location.latitude
+				parseObject["type"] = skill.category.rawValue
+				parseObject["owner"] = PFUser.current()!
+				parseObject["imageString"] = skill.imageString
+				parseObject["address"] = skill.address
+				parseObject["contact"] = PFUser.current()!.email
+				
+				parseObject.saveInBackground()
+				self.updateUserSkills()
 			}
 		}
 	}
@@ -299,8 +311,10 @@ class UserData: ObservableObject {
 		parseObject["longitude"] = skill.location.longitude
 		parseObject["latitude"] = skill.location.latitude
 		parseObject["type"] = skill.category.rawValue
+		parseObject["imageString"] = skill.imageString
 		parseObject["owner"] = PFUser.current()!
 		parseObject["address"] = skill.address
+		parseObject["contact"] = PFUser.current()!.email
 		
 		// Saves the new object.
 		parseObject.saveInBackground {
@@ -315,6 +329,31 @@ class UserData: ObservableObject {
 			}
 			DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
 				self.errorMessage = ""
+			}
+		}
+	}
+	
+	@Published var addSkillStep = 1
+	
+	func addSkillWeiter(location: CLLocationCoordinate2D){
+		if addSkillStep < 3{
+			if addSkillStep == 2{
+				if location == CLLocationCoordinate2D(){
+					self.errorMessage = "Bitte einen Ort eintragen"
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+						self.errorMessage = ""
+					}
+					return
+				}
+			}
+			self.addSkillStep += 1
+		}
+	}
+	
+	func addSkillZurück(){
+		func zurück(){
+			if addSkillStep > 1{
+				addSkillStep += -1
 			}
 		}
 	}
@@ -394,27 +433,6 @@ class UserData: ObservableObject {
 		UserDefaults.standard.synchronize()
 	}
 	
-	func update(skill: Skill){
-		let query = PFQuery(className:"Skill")
-		
-		query.getObjectInBackground(withId: skill.id) { (parseObject, error) in
-			if error != nil {
-				print(error!)
-			} else if let parseObject = parseObject {
-				parseObject["name"] = skill.name
-				parseObject["min"] = skill.maximumPeople
-				parseObject["max"] = skill.minimumPeople
-				parseObject["longitude"] = skill.location.longitude
-				parseObject["latitude"] = skill.location.latitude
-				parseObject["type"] = skill.category.rawValue
-				parseObject.objectId = skill.id
-				
-				parseObject.saveInBackground()
-				self.updateUserSkills()
-			}
-		}
-	}
-	
 	func updateUser(){
 		let currentUser = PFUser.current()
 		if currentUser != nil {
@@ -447,6 +465,12 @@ class UserData: ObservableObject {
 	func deleteUser() {
 		let currentUser = PFUser.current()
 		if currentUser != nil {
+			//delete skills
+			let skills = localUserSkills.filter({ $0.owner == self.user!})
+			for skill in skills{
+				self.deleteSkills(with: skill.id)
+			}
+			
 			// Deletes the user.
 			currentUser!.deleteInBackground()
 			errorMessage = "account gelöscht"

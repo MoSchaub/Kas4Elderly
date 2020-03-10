@@ -7,64 +7,112 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct RegisterView: View {
 	
 	@ObservedObject var userData = UserData()
-	
+	@Environment(\.presentationMode) var presentationMode
 	@State private var userProperties = ["Name", "Password","Alter","E-mail", "Wohnort"]
-
+	@State private var currentProperty = 1
+	@State private var user = User.example
+	
+	@State private var secondPassword = ""
+	@State private var secondEmail = ""
+	
+	@State private var pinDown = false
+	
 	var body: some View {
 		Group{
 			ZStack {
 				LinearGradient(gradient: Gradient(colors: [Color.red, Color.white]), startPoint: .top, endPoint: .bottom)
 					.edgesIgnoringSafeArea(.all)
 				
-				if self.userData.currentProperty == 0 || self.userData.currentProperty == 1 || self.userData.currentProperty == 2 || self.userData.currentProperty == 3 {
-						VStack {
-							Text("Registrieren")
-								.font(.largeTitle)
-								.fontWeight(.black)
-								.foregroundColor(.white)
-							
-							Spacer()
-							
-							if self.userData.currentProperty == 0{
-								NameTextField(userData: userData)
-							} else if self.userData.currentProperty == 1{
-								PasswordTextField(userData: userData)
-							}else if self.userData.currentProperty ==  2{
-								AgeTextField(userData: userData)
-							} else if self.userData.currentProperty == 3{
-								EmailTextField(userData: userData)
+				
+				VStack {
+					if self.currentProperty == 1 {
+						ScrollView {
+							VStack{
+								Text("Registrieren")
+									.font(.largeTitle)
+									.fontWeight(.black)
+									.foregroundColor(.white)
+								
+								Spacer()
+								
+								NameTextField(name: $user.name)
+								PasswordTextField(password: $user.password, secondPassword: $secondPassword)
+								AgeTextField(age: $user.age)
+								EmailTextField(email: $user.email, secondEmail: $secondEmail)
+								
+								Spacer()
 							}
-							
-							Spacer()
-							
-							Button(action: {
-								self.userData.weiter()
-							}) {
-								Text("weiter")
-									
-							}.padding(.bottom)
-							
-							Button(action: {
-								self.userData.zurück()
-							}) {
-								Text("zurück")
-							}.padding(.bottom)
-							
 						}
-				} else if self.userData.currentProperty == 4 {
-					LocationView(userData: userData)
+						
+					} else if self.userData.currentProperty == 1 {
+						LocationPickerViewControllerWrapper(userData: userData, popUp: false, coordinate: $user.location, address: .constant(""))
+						
+					} else if currentProperty == 2{
+						ImagePickerView( inputImage: $user.uiImage)
+						
+					} else{ //error
+						Text("Etwas ist schiefgelaufen ")
+						
+					}
 					
-				} else{ //error
-					Text("Etwas ist schiefgelaufen ")
+					
+					Spacer()
+					
+					Text(userData.errorMessage)
+						.foregroundColor(.red)
+						.animation(.default)
+					
+					Button(action: {
+						self.weiter()
+					}) {
+						Text("weiter")
+						
+					}.padding(.bottom)
+					
+					Button(action: {
+						self.back()
+					}) {
+						Text("zurück")
+					}.padding(.bottom)
+					
 					
 				}
+				
 			}
 		}
 	}
+	
+	func weiter(){
+		if validate(){
+			if self.currentProperty < 2{
+				currentProperty += 1
+			} else{
+				userData.localUser = user
+				userData.createUser()
+				self.presentationMode.wrappedValue.dismiss()
+			}
+		}
+	}
+	
+	func back(){
+		if currentProperty == 1{
+			self.presentationMode.wrappedValue.dismiss()
+		}
+		else if currentProperty > 1{
+			self.currentProperty += -1
+		}
+	}
+	
+	func validate() -> Bool{
+		self.userData.validate(name: user.name, password: user.password, secondPassword: secondPassword, age: user.age, email: user.email, secondEmail: secondEmail, currentPoperty: currentProperty)
+	}
+	
+	
 }
 
 

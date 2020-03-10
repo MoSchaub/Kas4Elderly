@@ -10,29 +10,18 @@ import SwiftUI
 
 struct PasswordTextField: View{
     
-    @ObservedObject var userData: UserData
-    
+    @Binding var password: String
+    @Binding var secondPassword: String
     
     var body: some View {
         VStack {
-            SecureField("Passwort eingeben", text: $userData.localUser.password, onCommit: {
-                self.userData.weiter()
-            })
+            SecureField("Passwort eingeben", text: $password)
                 .modifier(TextFieldModifier())
-                .textContentType(.newPassword)
+                //.textContentType(.newPassword)
             
-            SecureField("Passwort erneut eingeben", text: self.$userData.secondPW, onCommit: {
-                 self.userData.weiter()
-             })
+            SecureField("Passwort erneut eingeben", text: $secondPassword)
                 .modifier(TextFieldModifier())
-                .textContentType(.newPassword)
-            
-            Spacer()
-            
-            Text(userData.errorMessage)
-                .foregroundColor(.red)
-                .animation(.default)
-            
+                //.textContentType(.newPassword)
         }
     }
     
@@ -40,6 +29,6 @@ struct PasswordTextField: View{
 
 struct PasswordTextField_Previews: PreviewProvider {
     static var previews: some View {
-        PasswordTextField(userData: UserData())
+        PasswordTextField(password: .constant(""),secondPassword: .constant(""))
     }
 }

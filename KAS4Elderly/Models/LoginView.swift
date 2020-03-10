@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LoginView: View {
 	
+	@Environment(\.presentationMode) var presentationMode
 	@ObservedObject var userData : UserData
 	@State private var username = UserDefaults.standard.string(forKey: "username") ?? ""
 	@State private var password = UserDefaults.standard.string(forKey: "password") ?? ""
@@ -26,16 +27,16 @@ struct LoginView: View {
 				
 				Spacer()
 				
-				TextField("Name",text: $username)
+				TextField("Name",text: $username, onCommit: login)
 					.modifier(TextFieldModifier())
 					.textContentType(.username)
-				SecureField("Passwort", text: $password)
+				SecureField("Passwort", text: $password, onCommit: login)
 					.modifier(TextFieldModifier())
 					.textContentType(.password)
 				
 				
 				Button(action: {
-					self.userData.login(name: self.username, password: self.password)
+					self.login()
 				}) {
 					Text("Einloggen")
 						.padding()
@@ -52,7 +53,7 @@ struct LoginView: View {
 				Spacer()
 				
 				Button(action: {
-					self.userData.showLoginView = false
+					self.presentationMode.wrappedValue.dismiss()
 					self.userData.errorMessage = ""
 				}) {
 					Text("zurück")
@@ -61,6 +62,11 @@ struct LoginView: View {
 			
 		}
 	}
+	
+	func login(){
+		self.userData.login(name: username, password: password)
+	}
+	
 }
 
 struct LoginView_Previews: PreviewProvider {

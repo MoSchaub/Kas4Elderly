@@ -9,23 +9,13 @@
 import SwiftUI
 
 struct AgeTextField: View {
-	
-	@ObservedObject var userData: UserData
+	@Binding var age: String
 	
 	var body: some View {
 		VStack {
-			TextField(" Alter eingeben", text: $userData.localUser.age, onCommit: {
-				self.userData.weiter()
-			})
+			TextField(" Alter eingeben", text: $age)
 				.keyboardType(.numbersAndPunctuation)
 				.modifier(TextFieldModifier())
-			
-			Spacer()
-			
-			Text(userData.errorMessage)
-				.foregroundColor(.red)
-				.animation(.default)
-			
 		}
 	}
 	
@@ -33,6 +23,6 @@ struct AgeTextField: View {
 
 struct AgeTextField_Previews: PreviewProvider {
 	static var previews: some View {
-		AgeTextField(userData: UserData())
+		AgeTextField(age: .constant(""))
 	}
 }

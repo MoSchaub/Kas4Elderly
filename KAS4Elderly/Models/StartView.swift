@@ -15,7 +15,8 @@ struct StartView: View {
 	
 	//@Environment(\.sizeCategory) var sizeCategory
 	@ObservedObject var userData: UserData
-	
+	@State private var showLoginView = false
+	@State private var showRegisterView = false
 	
 	var body: some View {
 		ZStack {
@@ -31,7 +32,7 @@ struct StartView: View {
 				Spacer()
 				
 				Button(action: {
-					self.userData.showLoginView = true
+					self.showLoginView = true
 				}) {
 					Text("Einloggen")
 						.padding()
@@ -40,12 +41,12 @@ struct StartView: View {
 						.clipShape(Capsule())
 						.padding()
 				}
-				.sheet(isPresented: self.$userData.showLoginView){
+				.sheet(isPresented: self.$showLoginView){
 					LoginView(userData: self.userData)
 				}
 				
 				Button(action: {
-					self.userData.showRegisterView = true
+					self.showRegisterView = true
 				}) {
 					Text("Registrieren")
 						.padding()
@@ -54,7 +55,7 @@ struct StartView: View {
 						.clipShape(Capsule())
 						.padding()
 				}
-				.sheet(isPresented: self.$userData.showRegisterView){
+				.sheet(isPresented: self.$showRegisterView){
 					RegisterView(userData: self.userData)
 				}
 				Spacer()

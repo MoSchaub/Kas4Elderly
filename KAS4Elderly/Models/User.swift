@@ -28,7 +28,7 @@ struct User: Hashable, Equatable{
     
     var email: String
     
-    var image: UIImage?{
+    var uiImage: UIImage?{
         get{
             let data = Data(base64Encoded: imageString ?? defaultImage )
         return UIImage(data: data!)
@@ -46,7 +46,7 @@ struct User: Hashable, Equatable{
     init(_ pfUser: PFUser) {
         self.name = pfUser.username!
         self.password = pfUser.password ?? ""
-        self.email = pfUser.email!
+        self.email = pfUser.email ?? ""
         self.age = pfUser["age"] as! String
         self.location = CLLocationCoordinate2D(latitude: pfUser["latitude"] as! Double, longitude: pfUser["longitude"] as! Double)
         self.imageString = pfUser["imageString"] as! String?
@@ -61,7 +61,7 @@ struct User: Hashable, Equatable{
         self.imageString = imageString
     }
     
-    static var example = User(name: "User", password: "", email: "example@pfaender.net", age: "80", location: CLLocationCoordinate2D(latitude: 51.4825749214, longitude: 0))
+    static var example = User(name: "", password: "", email: "", age: "", location: CLLocationCoordinate2D(latitude: 51.4825749214, longitude: 0))
     
 }
 

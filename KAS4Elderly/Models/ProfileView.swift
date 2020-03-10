@@ -18,7 +18,7 @@ struct ProfileView: View {
                 Button(action: {
                     self.showImagePicker = true
                 }) {
-                    Image(uiImage: userData.localUser.image ?? UIImage(named: "user")!)
+                    Image(uiImage: userData.localUser.uiImage ?? UIImage(named: "user")!)
                         .renderingMode(.original)
                         .resizable()
                         .scaledToFit()
@@ -27,7 +27,7 @@ struct ProfileView: View {
                         .overlay(Circle().stroke(Color.secondary, lineWidth: CGFloat(integerLiteral: 4)))
                         .padding()
                         .sheet(isPresented: self.$showImagePicker) {
-                            UserImagePicker(image: self.$userData.localUser.image, userData: self.userData)
+                            ImagePickerView(inputImage: self.$userData.localUser.uiImage)
                     }
                 }
                 
@@ -72,7 +72,7 @@ struct ProfileView: View {
                 
                 //wohnort change
                 HStack {
-                    Text("Wohnort \(userData.localUser.location.latitude); \(userData.localUser.location.longitude)").padding()
+                    Text("Wohnort \(userData.localUser.location.latitude), \(userData.localUser.location.longitude)").padding()
                     Spacer()
                     Button(action: {
                         self.userData.editing = true

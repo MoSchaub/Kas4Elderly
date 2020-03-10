@@ -56,7 +56,7 @@ struct Skill: Identifiable{
         }
         set{
             if newValue == nil{
-                imageString = UIImage(systemName: "camera.on.rectangle")!.base64(format: .PNG)
+                imageString = UIImage(named: "user")!.base64(format: .PNG)
             }
             else {
                 imageString = newValue!.base64(format: .PNG)
@@ -71,9 +71,23 @@ struct Skill: Identifiable{
 		self.maximumPeople = pfObject["max"] as! Int
 		self.minimumPeople = pfObject["min"] as! Int
 		self.location = CLLocationCoordinate2D(latitude: pfObject["latitude"] as! Double, longitude: pfObject["longitude"] as! Double)
-		self.owner = User(PFUser.current()!)
+		
 		self.address = pfObject["address"] as! String
 		self.imageString = pfObject["imageString"] as? String
+		
+		let ownerObject = pfObject["owner"] as! PFObject
+		
+		let query = PFUser.query()
+		query?.whereKey("objectId", equalTo: ownerObject.objectId as Any)
+        
+		if let object =  try? query?.getFirstObject(){
+			let pfUser = object as! PFUser
+			self.owner = User(pfUser)
+			owner.email = (pfObject["contact"] as? String)!
+			return
+		}
+		self.owner = User.example
+		
 	}
 	
 	init(name: String, maximumPeople: Int, minimumPeople: Int, location: CLLocationCoordinate2D, category: Category, user: User, address: String, image: UIImage? = nil) {
