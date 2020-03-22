@@ -14,13 +14,14 @@ struct MySkillsView: View {
     @ObservedObject var userData: UserData
     @State private var showAddSkillView = false
     
+    
     var body: some View {
         NavigationView{
             List{
                 Section(footer: Text(userData.errorMessage).foregroundColor(.red)){
                     ForEach(userData.localUserSkills) { item in
-                        NavigationLink(destination: SkillDetailView(owned: true, userData: self.userData, skill: item)) {
-                            SkillRow(skill: item)
+                        NavigationLink(destination: SkillDetailView(owned: true,image: Image(uiImage: item.image ?? UIImage(named: "user")!), userData: self.userData, skill: item)) {
+                            SkillRow(userData: self.userData, skill: item)
                         }
                     }
                     .onDelete(perform: self.userData.deleteSkills)
@@ -48,7 +49,12 @@ struct MySkills_Previews: PreviewProvider {
 
 struct SkillRow: View {
     
-    var skill: Skill
+    @ObservedObject var userData: UserData
+    @State var skill: Skill
+    
+    var skillIndex: Int? {
+        userData.localSkills.firstIndex(where: { $0.id == skill.id})
+    }
     
     var body: some View {
         HStack {
@@ -59,6 +65,11 @@ struct SkillRow: View {
             }
             Spacer()
             Text(skill.address)
+        }
+        .onAppear{
+            if let skillIndex = self.skillIndex{
+                self.skill = self.userData.localSkills[skillIndex]
+            }
         }
     }
 }

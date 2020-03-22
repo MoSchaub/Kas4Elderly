@@ -9,7 +9,7 @@
 import SwiftUI
 import Parse
 
-struct EditSheet: View {
+struct UserEditSheet: View {
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -43,7 +43,7 @@ struct EditSheet: View {
                                .keyboardType(.emailAddress)
                                //.textContentType(.emailAddress)
             }else if self.userData.editNumber == 4 {
-                LocationPickerViewControllerWrapper(userData: userData, popUp: true,coordinate: $user.location, address: .constant(""))
+                LocationPickerViewControllerWrapper(userData: userData, popUp: true, skill: nil, coordinate: $user.location, address: .constant(""))
             }
         }
     }
@@ -58,6 +58,6 @@ struct EditSheet: View {
 
 struct EditSheet_Previews: PreviewProvider {
     static var previews: some View {
-        EditSheet(userData: UserData(),number: 1)
+        UserEditSheet(userData: UserData(),number: 1)
     }
 }

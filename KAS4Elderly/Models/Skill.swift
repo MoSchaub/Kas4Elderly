@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 import Parse
 
-struct Skill: Identifiable{
+struct Skill: Identifiable, Equatable{
 	
 	enum Category : String, CustomStringConvertible{
 		

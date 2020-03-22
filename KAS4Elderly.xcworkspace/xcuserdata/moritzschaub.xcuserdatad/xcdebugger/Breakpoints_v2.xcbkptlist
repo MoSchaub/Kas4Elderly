@@ -272,8 +272,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
             endingLineNumber = "32"
-            landmarkName = "updateUIViewController(_:context:)"
-            landmarkType = "7">
+            landmarkName = "LocationPickerViewControllerWrapper"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -424,7 +424,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F333BCBC-86DF-4D61-A5EF-CC4CEF298D88"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KAS4Elderly/Models/RegisterView.swift"
@@ -434,6 +434,70 @@
             endingLineNumber = "112"
             landmarkName = "validate()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "99547715-0C8E-41F9-AA42-4FA22112F7F5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KAS4Elderly/Models/SkillDetailView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "skillIndex"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "99547715-0C8E-41F9-AA42-4FA22112F7F5 - a3ef3b00c80e82aa"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "KAS4Elderly.SkillDetailView.skillIndex.getter : Swift.Int"
+                  moduleName = "KAS4Elderly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/moritzschaub/Desktop/KAS4Elderly/KAS4Elderly/Models/SkillDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "914">
+               </Location>
+               <Location
+                  uuid = "99547715-0C8E-41F9-AA42-4FA22112F7F5 - 8643b9c11ceabb19"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (KAS4Elderly.Skill) -&gt; Swift.Bool in KAS4Elderly.SkillDetailView.skillIndex.getter : Swift.Int"
+                  moduleName = "KAS4Elderly"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/moritzschaub/Desktop/KAS4Elderly/KAS4Elderly/Models/SkillDetailView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "47">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7E95CED1-2E6A-4EFF-980C-673A09F5F83A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KAS4Elderly/Models/SkillEditSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -61,9 +61,8 @@ struct ImagePickerView: View {
         if let inputImage = inputImage {
         image = Image(uiImage: inputImage)
         } else {
-            image = Image(uiImage: UIImage(named: "User")!)
+            image = Image(uiImage: UIImage(named: "user")!)
         }
-        
     }
     
 }

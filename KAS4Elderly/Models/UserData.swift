@@ -351,10 +351,8 @@ class UserData: ObservableObject {
 	}
 	
 	func addSkillZurück(){
-		func zurück(){
-			if addSkillStep > 1{
-				addSkillStep += -1
-			}
+		if addSkillStep > 1{
+			addSkillStep += -1
 		}
 	}
 	

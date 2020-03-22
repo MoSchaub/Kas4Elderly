@@ -53,7 +53,7 @@ struct ProfileView: View {
                         Image(systemName: "pencil.circle")
                     }.padding()
                         .sheet(isPresented: self.$userData.editing){
-                            EditSheet(userData: self.userData,number: self.userData.editNumber )
+                            UserEditSheet(userData: self.userData,number: self.userData.editNumber )
                     }
                 }
                 

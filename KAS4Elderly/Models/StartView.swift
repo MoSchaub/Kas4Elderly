@@ -35,11 +35,13 @@ struct StartView: View {
 					self.showLoginView = true
 				}) {
 					Text("Einloggen")
+						.font(.headline)
 						.padding()
 						.background(Color.red)
 						.foregroundColor(.white)
 						.clipShape(Capsule())
 						.padding()
+						.layoutPriority(1)
 				}
 				.sheet(isPresented: self.$showLoginView){
 					LoginView(userData: self.userData)
@@ -49,11 +51,13 @@ struct StartView: View {
 					self.showRegisterView = true
 				}) {
 					Text("Registrieren")
+						.font(.headline)
 						.padding()
 						.background(Color.red)
 						.foregroundColor(.white)
 						.clipShape(Capsule())
 						.padding()
+						.layoutPriority(1)
 				}
 				.sheet(isPresented: self.$showRegisterView){
 					RegisterView(userData: self.userData)

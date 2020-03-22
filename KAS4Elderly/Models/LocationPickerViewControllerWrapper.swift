@@ -17,6 +17,7 @@ struct LocationPickerViewControllerWrapper: UIViewControllerRepresentable {
     @State private var firstTime = true
     
     let popUp: Bool
+    let skill: Skill?
     @Binding var coordinate: CLLocationCoordinate2D
     @Binding var address: String
     
@@ -49,8 +50,14 @@ struct LocationPickerViewControllerWrapper: UIViewControllerRepresentable {
                 DispatchQueue.main.async {
                     self.presentationMode.wrappedValue.dismiss()
                     if self.popUp{
-                        DispatchQueue.main.async {
-                            self.userData.updateUser()
+                        if let skill = self.skill{
+                            DispatchQueue.main.async {
+                                self.userData.update(skill: skill)
+                            }
+                        } else{
+                            DispatchQueue.main.async {
+                                self.userData.updateUser()
+                            }
                         }
                     }
                 }

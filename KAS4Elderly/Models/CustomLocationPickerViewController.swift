@@ -17,7 +17,6 @@ class CustomLocationPickerViewController: UIViewController, MKMapViewDelegate{
     
     @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var locationAddressLabel: UILabel!
-    @IBOutlet weak var mapView: MKMapView!
     
     var coordinate = CLLocationCoordinate2D()
     var locationAddress = ""
@@ -46,8 +45,11 @@ class CustomLocationPickerViewController: UIViewController, MKMapViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-        mapView.setRegion(region, animated: true)
+        if popUp{
+            self.presentLocationPicker(animated: false)
+        } else{
+            self.pushLocationPicker(animated: false)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -60,10 +62,15 @@ class CustomLocationPickerViewController: UIViewController, MKMapViewDelegate{
     // MARK: Navigation
     
     @IBAction func pushLocationPickerButtonDidTap(button: UIButton) {
-        self.pushLocationPicker()
+        if popUp{
+            self.presentLocationPicker()
+        } else{
+            self.pushLocationPicker()
+        }
+        
     }
     
-    func pushLocationPicker(){
+    func pushLocationPicker(animated: Bool = true){
         // Push Location Picker via codes.
         let locationPicker = LocationPicker()
         locationPicker.alternativeLocations = historyLocationList.reversed()
@@ -90,17 +97,20 @@ class CustomLocationPickerViewController: UIViewController, MKMapViewDelegate{
         locationPicker.deleteCompletion = { locationItem in
             self.historyLocationList.remove(at: self.historyLocationList.firstIndex(of: locationItem)!)
         }
-        navigationController!.pushViewController(locationPicker, animated: true)
+        navigationController!.pushViewController(locationPicker, animated: animated)
         self.showingPicker = true
+        if !animated{
+            navigationController!.dismiss(animated: animated, completion: nil)
+        }
     }
     
-    func presentLocationPicker(){
+    func presentLocationPicker(animated: Bool = true){
         // Present Location Picker subclass via codes.
         // Create LocationPicker subclass.
         let customLocationPicker = CustomLocationPicker()
         customLocationPicker.viewController = self
         let navigationController = UINavigationController(rootViewController: customLocationPicker)
-        present(navigationController, animated: false, completion: nil)
+        present(navigationController, animated: animated, completion: nil)
         self.showingPicker = true
     }
 
@@ -149,8 +159,6 @@ class CustomLocationPickerViewController: UIViewController, MKMapViewDelegate{
         if popUp{
             userData.localUser.location = CLLocationCoordinate2D(latitude: locationItem.coordinate?.latitude ?? 0, longitude: locationItem.coordinate?.longitude ?? 0)
         }
-        let region = MKCoordinateRegion.init(center: coordinate, latitudinalMeters: 800, longitudinalMeters: 800)
-        mapView.setRegion(region, animated: true)
     }
     
     func storeLocation(locationItem: LocationItem) {

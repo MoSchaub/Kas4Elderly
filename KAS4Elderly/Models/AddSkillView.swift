@@ -54,7 +54,7 @@ struct AddSkillView: View {
             } else if userData.addSkillStep == 2{
                 NavigationView{
                     
-                    LocationPickerViewControllerWrapper(userData: userData, popUp: false, coordinate: $skill.location, address: $skill.address)
+                    LocationPickerViewControllerWrapper(userData: userData, popUp: false, skill: skill, coordinate: $skill.location, address: $skill.address)
                         .navigationBarTitle(" ",displayMode: .inline)
                 }
             } else{

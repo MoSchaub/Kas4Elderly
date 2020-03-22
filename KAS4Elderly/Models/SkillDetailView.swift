@@ -12,39 +12,87 @@ import MapKit
 struct SkillDetailView: View {
     
     @State private var editingMode = false
+    @State private var editNumber = 0
     @State private var showShareSheet = false
     let owned: Bool
     
+    @State var image = Image("user")
     @ObservedObject var userData: UserData
-    var skill: Skill
     
-    var skillIndex: Int {
-        userData.localSkills.firstIndex(where: { $0.id == skill.id })!
+    @State var skill: Skill
+    
+    var skillIndex: Int? {
+        userData.localSkills.firstIndex(where: { $0 == skill})
     }
+    
+    
     
     var body: some View {
         NavigationView{
             Form{
-                Image(uiImage: skill.image ?? UIImage(data: Data(base64Encoded: defaultImage)! )!)
-                    .resizable()
-                    .scaledToFit()
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.primary, lineWidth: 1))
-                    .shadow(color: .primary, radius: 2)
-                    .padding()
-                    .animation(.default)
-                
-                Section(header: Text("Name")){
-                    Text(skill.name)
+                Section(header: Text("name")) {
+                    HStack {
+                        Text(skill.name)
+                        if self.owned{
+                            Spacer()
+                            
+                            Button(action: {
+                                self.editingMode = true
+                                self.editNumber = 1
+                            }) {
+                                Image(systemName: "pencil.circle")
+                            }.padding()
+                            .sheet(isPresented: $editingMode, onDismiss: {
+                                self.userData.update(skill: self.skill)
+                                self.loadImage()
+                                if let skillIndex = self.skillIndex{
+                                    self.skill = self.userData.localSkills[skillIndex]
+                                }
+                            }, content: {
+                                SkillEditSheet(userData: self.userData, skill: self.$skill, number: self.editNumber)
+                            })
+                        }
+                    }
                 }
+                
+                HStack {
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.primary, lineWidth: 1))
+                        .shadow(color: .primary, radius: 2)
+                        .padding()
+                        .animation(.default)
+                    if self.owned{
+                        Spacer()
+                        
+                        Button(action: {
+                            self.editingMode = true
+                            self.editNumber = 2
+                        }) {
+                            Image(systemName: "pencil.circle")
+                        }.padding()
+                    }
+                }
+                
+                
                 
                 Section(header: Text("Kategorie")) {
-                    Text(skill.category.rawValue)
-                }
-                
-                Section(header: Text("Veranstalter")) {
-                    Text(skill.category.rawValue)
+                    HStack {
+                        Text(skill.category.rawValue)
+                        if self.owned{
+                            Spacer()
+                            
+                            Button(action: {
+                                self.editingMode = true
+                                self.editNumber = 3
+                            }) {
+                                Image(systemName: "pencil.circle")
+                            }.padding()
+                        }
+                    }
                 }
                 
                 Section(header: Text("Kontakt")){
@@ -52,53 +100,69 @@ struct SkillDetailView: View {
                 }
                 
                 Section(header: Text("Anzahl Teilnehmer")){
-                    Text("Minimal: \(skill.minimumPeople)")
-                    
-                    Text("Maximal: \(skill.maximumPeople)")
+                    HStack {
+                        VStack{
+                            Text("Minimal: \(skill.minimumPeople)")
+                            
+                            Text("Maximal: \(skill.maximumPeople)")
+                        }
+                        if self.owned{
+                            Spacer()
+                            
+                            Button(action: {
+                                self.editingMode = true
+                                self.editNumber = 4
+                            }) {
+                                Image(systemName: "pencil.circle")
+                            }.padding()
+                        }
+                    }
                 }
                 
                 Section(header: Text("Ort")){
-                    Text("Ort: \(skill.address) (\(skill.location.latitude); \(skill.location.longitude))")
-                        .onLongPressGesture {
-                            //show share sheet
-                            self.showShareSheet = true
+                    HStack {
+                        Text("Ort: \(skill.address) (\(skill.location.latitude); \(skill.location.longitude))")
+                            .onLongPressGesture {
+                                //show share sheet
+                                self.showShareSheet = true
+                        }
+                        if self.owned{
+                            Spacer()
+                            
+                            Button(action: {
+                                self.editingMode = true
+                                self.editNumber = 5
+                            }) {
+                                Image(systemName: "pencil.circle")
+                            }.padding()
+                        }
                     }
                 }
             }
         }
         .navigationBarTitle(Text(skill.name), displayMode: .inline)
-        .navigationBarHidden(!owned)
-        .navigationBarItems(trailing: Button(action: {
-                if self.owned{
-                    if self.editingMode{
-                        self.userData.update(skill: self.skill)
-                        self.editingMode = false
-                    } else{
-                        self.editingMode = true
-                    }
-                }
-            }){
-                if self.owned{
-                    if self.editingMode{
-                        Text("Speichern")
-                    } else{
-                        Text("Bearbeiten")
-                    }
-                } else{
-                    Text("")
-                }
-                
-            }
-        )
         .sheet(isPresented: self.$showShareSheet) {
             ShareSheet(activityItems: ["\(self.skill.location)"])
+        }
+        .onAppear {
+            if let skillIndex = self.skillIndex{
+                self.skill = self.userData.localSkills[skillIndex]
+            }
+            self.loadImage()
+        }
+    }
+    func loadImage() {
+        if let inputImage = skill.image {
+            self.image = Image(uiImage: inputImage)
+        } else {
+            image = Image(uiImage: UIImage(named: "user")!)
         }
     }
 }
 
 struct SkillDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        SkillDetailView(owned: false, userData: UserData(), skill: Skill.example)
+        SkillDetailView(owned: false, image: Image(uiImage: UIImage(data: Data(base64Encoded: defaultImage)! )!), userData: UserData(), skill: Skill.example)
     }
 }
 
@@ -107,7 +171,6 @@ extension CLLocationCoordinate2D: CustomDebugStringConvertible{
         "(\(self.latitude), \(self.longitude)"
     }
 }
-
 
 struct ShareSheet: UIViewControllerRepresentable {
     typealias Callback = (_ activityType: UIActivity.ActivityType?, _ completed: Bool, _ returnedItems: [Any]?, _ error: Error?) -> Void

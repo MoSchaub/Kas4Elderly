@@ -50,7 +50,7 @@ struct RegisterView: View {
 						}
 						
 					} else if self.userData.currentProperty == 1 {
-						LocationPickerViewControllerWrapper(userData: userData, popUp: false, coordinate: $user.location, address: .constant(""))
+						LocationPickerViewControllerWrapper(userData: userData, popUp: false, skill: nil, coordinate: $user.location, address: .constant(""))
 						
 					} else if currentProperty == 2{
 						ImagePickerView( inputImage: $user.uiImage)
