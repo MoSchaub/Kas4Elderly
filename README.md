@@ -6,6 +6,6 @@ Kas4Elderly ist also eine Plattform die die Zusammenarbeit von alten und jungen 
 
 ## Funktionsweise
 Sowohl junge als auch alte Leute können Skills einstellen. Dies kann ales mögliche von Kochen über Technik zu Fitness umfassen. 
-![alt text](MockUp1.png)
+![alt text](MockUp1.png,MockUp2.png)
 Anderre Leute können dann über die karte nach angebotenen Skills in ihrer nähe schauen und bei Interesse die Veranstalter per E-mail kontaktieren. 
 
